@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   Github,
@@ -92,7 +92,7 @@ function App() {
   }, [fullText]);
 
   useEffect(() => {
-    const targets = { followers: 50000, projects: 5, experience: 3, visitors};
+    const targets = { followers: 50000, projects: 15, experience: 3, visitors };
     const duration = 2000;
     const steps = 60;
     const interval = duration / steps;
@@ -179,10 +179,11 @@ function App() {
 
         <div className="scroll-indicator">
           {[0, 1, 2, 3, 4, 5].map((index) => (
-            <div
+            <button
               key={index}
               className={`scroll-dot ${activeSection === index ? 'active' : ''}`}
               onClick={() => scrollToSection(index)}
+              aria-label={`Go to section ${index + 1}`}
             />
           ))}
         </div>

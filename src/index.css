@@ -561,6 +561,8 @@ html {
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  border: none;
+  padding: 0;
 }
 
 .scroll-dot.active {
