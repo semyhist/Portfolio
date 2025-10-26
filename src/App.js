@@ -19,6 +19,7 @@ function App() {
   const [typedText, setTypedText] = useState("");
   const [lang, setLang] = useState("tr");
   const [visitors, setVisitors] = useState(0);
+  const [gaVisitors, setGaVisitors] = useState(0);
   const [stats, setStats] = useState({
     followers: 0,
     projects: 0,
@@ -44,6 +45,17 @@ function App() {
     const newCount = count + 1;
     localStorage.setItem('visitorCount', newCount.toString());
     setVisitors(newCount);
+
+    if (window.gtag) {
+      window.gtag('get', 'G-Y7W3CTSGT6', 'client_id', (clientId) => {
+        if (clientId) {
+          const storedGA = parseInt(localStorage.getItem('gaVisitors') || '0');
+          const newGA = storedGA + 1;
+          localStorage.setItem('gaVisitors', newGA.toString());
+          setGaVisitors(newGA);
+        }
+      });
+    }
 
     const handleMouseMove = (e) => {
       setMousePosition({
@@ -92,7 +104,8 @@ function App() {
   }, [fullText]);
 
   useEffect(() => {
-    const targets = { followers: 50000, projects: 15, experience: 3, visitors };
+    const displayVisitors = gaVisitors > 0 ? gaVisitors : visitors;
+    const targets = { followers: 50000, projects: 15, experience: 3, visitors: displayVisitors };
     const duration = 2000;
     const steps = 60;
     const interval = duration / steps;
@@ -111,7 +124,7 @@ function App() {
     }, interval);
 
     return () => clearInterval(timer);
-  }, [visitors]);
+  }, [visitors, gaVisitors]);
 
   if (isLoading) {
     return (
