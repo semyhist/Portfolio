@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   Github,
   Linkedin,
@@ -10,18 +10,75 @@ import {
   Palette,
   Video,
   Users,
+  ArrowUp,
 } from "lucide-react";
+import { translations } from "./translations";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [typedText, setTypedText] = useState("");
+  const [lang, setLang] = useState("tr");
+  const [visitors, setVisitors] = useState(0);
+  const [stats, setStats] = useState({
+    followers: 0,
+    projects: 0,
+    experience: 0,
+    visitors: 0
+  });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeSection, setActiveSection] = useState(0);
 
-  const fullText = "Bilgisayar Mühendisliği Öğrencisi, Tasarımcı, Editör";
+  const { scrollY, scrollYProgress } = useScroll();
+  const y1 = useTransform(scrollY, [0, 300], [0, 100]);
+  const y2 = useTransform(scrollY, [0, 300], [0, -50]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  const t = translations[lang];
+  const fullText = t.hero.subtitle;
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 2000);
 
+    const count = parseInt(localStorage.getItem('visitorCount') || '0');
+    const newCount = count + 1;
+    localStorage.setItem('visitorCount', newCount.toString());
+    setVisitors(newCount);
+
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20
+      });
+    };
+
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+      
+      const sections = document.querySelectorAll('section');
+      const scrollPos = window.scrollY + window.innerHeight / 2;
+      
+      sections.forEach((section, index) => {
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (scrollPos >= top && scrollPos <= bottom) {
+          setActiveSection(index);
+        }
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     let i = 0;
+    setTypedText("");
     const typeTimer = setInterval(() => {
       if (i < fullText.length) {
         setTypedText(fullText.slice(0, i + 1));
@@ -31,10 +88,30 @@ function App() {
       }
     }, 100);
 
-    return () => {
-      clearInterval(typeTimer);
-    };
-  }, []);
+    return () => clearInterval(typeTimer);
+  }, [fullText]);
+
+  useEffect(() => {
+    const targets = { followers: 50000, projects: 5, experience: 3, visitors};
+    const duration = 2000;
+    const steps = 60;
+    const interval = duration / steps;
+
+    let step = 0;
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      setStats({
+        followers: Math.floor(targets.followers * progress),
+        projects: Math.floor(targets.projects * progress),
+        experience: Math.floor(targets.experience * progress),
+        visitors: Math.floor(targets.visitors * progress)
+      });
+      if (step >= steps) clearInterval(timer);
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [visitors]);
 
   if (isLoading) {
     return (
@@ -70,23 +147,81 @@ function App() {
     );
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToSection = (index) => {
+    const sections = document.querySelectorAll('section');
+    sections[index]?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <AnimatePresence>
       <div className="App">
-        {/* Hero Section */}
+        <motion.div 
+          className="scroll-progress"
+          style={{ scaleX: scrollYProgress }}
+        />
+        {showScrollTop && (
+          <motion.button
+            className="scroll-to-top"
+            onClick={scrollToTop}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <ArrowUp size={24} />
+          </motion.button>
+        )}
+
+        <div className="scroll-indicator">
+          {[0, 1, 2, 3, 4, 5].map((index) => (
+            <div
+              key={index}
+              className={`scroll-dot ${activeSection === index ? 'active' : ''}`}
+              onClick={() => scrollToSection(index)}
+            />
+          ))}
+        </div>
+
+        <div className="lang-toggle">
+          <button 
+            className={`lang-btn ${lang === 'tr' ? 'active' : ''}`}
+            onClick={() => setLang('tr')}
+          >
+            TR
+          </button>
+          <button 
+            className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
+            onClick={() => setLang('en')}
+          >
+            EN
+          </button>
+        </div>
+
         <motion.section
-          className="hero"
+          className="hero parallax-section"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div className="container">
+          <motion.div 
+            className="container parallax-layer"
+            style={{
+              x: mousePosition.x,
+              y: mousePosition.y
+            }}
+          >
             <motion.h1
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
+              style={{ y: y1, opacity }}
             >
-              Semih Aydın
+              {t.hero.title}
             </motion.h1>
             <motion.p
               initial={{ opacity: 0 }}
@@ -99,8 +234,9 @@ function App() {
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.5 }}
+              style={{ y: y2 }}
             >
-              Trabzon Üniversitesi - 1. Sınıf
+              {t.hero.university}
             </motion.p>
 
             <motion.div
@@ -156,10 +292,62 @@ function App() {
                 );
               })}
             </motion.div>
+          </motion.div>
+        </motion.section>
+
+        <motion.section
+          className="stats-section"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="container">
+            <div className="stats-grid">
+              <motion.div
+                className="stat-card"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <span className="stat-number">{stats.followers.toLocaleString()}+</span>
+                <span className="stat-label">{t.stats.followers}</span>
+              </motion.div>
+              <motion.div
+                className="stat-card"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
+                <span className="stat-number">{stats.projects}</span>
+                <span className="stat-label">{t.stats.projects}</span>
+              </motion.div>
+              <motion.div
+                className="stat-card"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <span className="stat-number">{stats.experience}+</span>
+                <span className="stat-label">{t.stats.experience}</span>
+              </motion.div>
+              <motion.div
+                className="stat-card"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <span className="stat-number">{stats.visitors.toLocaleString()}</span>
+                <span className="stat-label">{t.stats.visitors}</span>
+              </motion.div>
+            </div>
           </div>
         </motion.section>
 
-        {/* About Section */}
         <motion.section
           className="section"
           initial={{ opacity: 0 }}
@@ -174,7 +362,7 @@ function App() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              Hakkımda
+              {t.about.title}
             </motion.h2>
             <div className="about-content">
               <motion.p
@@ -183,10 +371,7 @@ function App() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                Merhaba! Ben Semih, Trabzon Üniversitesi Bilgisayar Mühendisliği
-                1. sınıf öğrencisiyim. Küçük yaşlardan beri bilgisayar, tasarım
-                ve video editlemeye olan ilgimi yıllar içinde geliştirerek ileri
-                seviyeye taşıdım.
+                {t.about.p1}
               </motion.p>
               <motion.p
                 initial={{ y: 30, opacity: 0 }}
@@ -194,7 +379,7 @@ function App() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                16 yaşımda kurduğum Formula 1 sosyal medya sayfası (
+                {t.about.p2.split('@arkakanat')[0]}
                 <a 
                   href="https://instagram.com/arkakanat" 
                   target="_blank" 
@@ -217,9 +402,7 @@ function App() {
                 >
                   @arkakanat
                 </a>
-                ) bugün 50.000'i aşkın takipçiye ulaştı. Bu deneyim
-                bana içerik üretimi ve topluluk yönetimi konusunda değerli
-                tecrübeler kazandırdı.
+                {t.about.p2.split('@arkakanat')[1]}
               </motion.p>
               <motion.p
                 initial={{ y: 30, opacity: 0 }}
@@ -227,15 +410,12 @@ function App() {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 viewport={{ once: true }}
               >
-                Üniversiteye başlamadan önce Python, JavaScript ve React.js ile
-                projeler geliştirerek yazılım alanına adım attım. Şimdi bu
-                alandaki bilgilerimi daha da ilerletmeyi hedefliyorum.
+                {t.about.p3}
               </motion.p>
             </div>
           </div>
         </motion.section>
 
-        {/* Skills Section */}
         <motion.section
           className="section"
           initial={{ opacity: 0 }}
@@ -250,33 +430,29 @@ function App() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Yeteneklerim ✨
+              {t.skills.title}
             </motion.h2>
             <div className="skills-grid">
               {[
                 {
                   icon: Code,
-                  title: "Yazılım",
-                  description:
-                    "Python, JavaScript, React.js ile web uygulamaları yapabiliyorum.",
+                  title: t.skills.software.title,
+                  description: t.skills.software.desc,
                 },
                 {
                   icon: Palette,
-                  title: "Tasarım",
-                  description:
-                    "Grafik tasarım ve görsel içerik üretiminde Adobe programlarını (Photoshop, Illustrator) kullanabiliyorum.",
+                  title: t.skills.design.title,
+                  description: t.skills.design.desc,
                 },
                 {
                   icon: Video,
-                  title: "Video Editlme",
-                  description:
-                    "Profesyonel video editlme konusunda Adobe After Effects ve Premiere Pro kullanabiliyorum.",
+                  title: t.skills.video.title,
+                  description: t.skills.video.desc,
                 },
                 {
                   icon: Users,
-                  title: "Topluluk Yönetimi",
-                  description:
-                    "50K+ takipçili Formula 1 sayfamla topluluk yönetimi yapabiliyorum. Birlikte ortak projeler yapabiliyorum.",
+                  title: t.skills.community.title,
+                  description: t.skills.community.desc,
                 },
               ].map((skill, index) => {
                 const Icon = skill.icon;
@@ -312,7 +488,6 @@ function App() {
           </div>
         </motion.section>
 
-        {/* Projects Section */}
         <motion.section
           className="section"
           initial={{ opacity: 0 }}
@@ -327,31 +502,28 @@ function App() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Projelerim
+              {t.projects.title}
             </motion.h2>
             <div className="projects-grid">
               {[
                 {
-                  title: "@arkakanat - Motorsporları",
-                  description:
-                    "16 yaşımda kurduğum ve 50.000+ takipçiye ulaşan Formula 1 sosyal medya sayfası. Günlük on binlerce kişiye ulaşan içerikler üretiyoruz.",
+                  title: t.projects.arkakanat.title,
+                  description: t.projects.arkakanat.desc,
                   tags: [
-                    "Sosyal Medya",
-                    "İçerik Üretimi",
-                    "Viral Tasarımlar",
-                    "Topluluk Lideri",
+                    "Social Media",
+                    "Content Creation",
+                    "Viral Designs",
+                    "Community Leader",
                   ],
                 },
                 {
-                  title: "Web Geliştirme",
-                  description:
-                    "Python, JavaScript ve React.js ile geliştirdiğim çeşitli web uygulamaları. Her proje bir deneyim, her kod satırı bir öğrenme. Sürekli kendimi geliştiriyorum!",
+                  title: t.projects.web.title,
+                  description: t.projects.web.desc,
                   tags: ["Python", "JavaScript", "React.js", "HTML/CSS"],
                 },
                 {
-                  title: "Tasarım & Video",
-                  description:
-                    "Yıllar içinde geliştirdiğim grafik tasarım ve video editlme projelerimi var. Kendimi geliştirme ve yaratıcı olma konusunda da calışıyorum.",
+                  title: t.projects.design.title,
+                  description: t.projects.design.desc,
                   tags: [
                     "Photoshop",
                     "Illustrator",
@@ -399,7 +571,6 @@ function App() {
           </div>
         </motion.section>
 
-        {/* Contact Section */}
         <motion.section
           className="section contact"
           initial={{ opacity: 0 }}
@@ -414,7 +585,7 @@ function App() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Sosyal Medya Bağlantılarım
+              {t.contact.title}
             </motion.h2>
             <div className="contact-info">
               <motion.p
@@ -423,8 +594,7 @@ function App() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                Projeler, işbirlikleri veya herhangi bir konu için benimle
-                aşağıdaki bağlantıları kullanarak iletişime geçebilirsiniz.
+                {t.contact.desc}
               </motion.p>
 
               <motion.div
