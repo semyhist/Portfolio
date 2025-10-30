@@ -15,119 +15,98 @@ import {
 } from "lucide-react";
 import { translations } from "../translations";
 
-function Home({ lang, setLang }) {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
-  const [typedText, setTypedText] = useState("");
-  const [visitors, setVisitors] = useState(0);
-  const [gaVisitors, setGaVisitors] = useState(0);
-  const [stats, setStats] = useState({
-    followers: 0,
-    projects: 0,
-    experience: 0,
-    visitors: 0
+function AnaSayfa({ dil, setDil }) {
+  const sayfaGec = useNavigate();
+  const [yukleniyor, setYukleniyor] = useState(true);
+  const [yazilanMetin, setYazilanMetin] = useState("");
+  const [istatistikler, setIstatistikler] = useState({
+    takipci: 0,
+    proje: 0,
+    deneyim: 0
   });
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const [activeSection, setActiveSection] = useState(0);
+  const [fareKonum, setFareKonum] = useState({ x: 0, y: 0 });
+  const [yukariGoster, setYukariGoster] = useState(false);
+  const [aktifBolum, setAktifBolum] = useState(0);
 
   const { scrollY, scrollYProgress } = useScroll();
   const y1 = useTransform(scrollY, [0, 300], [0, 100]);
   const y2 = useTransform(scrollY, [0, 300], [0, -50]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const t = translations[lang];
-  const fullText = t.hero.subtitle;
+  const ceviriler = translations[dil];
+  const tamMetin = ceviriler.hero.subtitle;
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => setYukleniyor(false), 2000);
 
-    const count = parseInt(localStorage.getItem('visitorCount') || '0');
-    const newCount = count + 1;
-    localStorage.setItem('visitorCount', newCount.toString());
-    setVisitors(newCount);
-
-    if (window.gtag) {
-      window.gtag('get', 'G-Y7W3CTSGT6', 'client_id', (clientId) => {
-        if (clientId) {
-          const storedGA = parseInt(localStorage.getItem('gaVisitors') || '0');
-          const newGA = storedGA + 1;
-          localStorage.setItem('gaVisitors', newGA.toString());
-          setGaVisitors(newGA);
-        }
-      });
-    }
-
-    const handleMouseMove = (e) => {
-      setMousePosition({
+    const fareHareket = (e) => {
+      setFareKonum({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
         y: (e.clientY / window.innerHeight - 0.5) * 20
       });
     };
 
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
+    const sayfaKaydir = () => {
+      setYukariGoster(window.scrollY > 500);
       
-      const sections = document.querySelectorAll('section');
-      const scrollPos = window.scrollY + window.innerHeight / 2;
+      const bolumler = document.querySelectorAll('section');
+      const kaydirmaPozisyon = window.scrollY + window.innerHeight / 2;
       
-      sections.forEach((section, index) => {
-        const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
-        if (scrollPos >= top && scrollPos <= bottom) {
-          setActiveSection(index);
+      bolumler.forEach((bolum, sira) => {
+        const ust = bolum.offsetTop;
+        const alt = ust + bolum.offsetHeight;
+        if (kaydirmaPozisyon >= ust && kaydirmaPozisyon <= alt) {
+          setAktifBolum(sira);
         }
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', fareHareket);
+    window.addEventListener('scroll', sayfaKaydir);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', fareHareket);
+      window.removeEventListener('scroll', sayfaKaydir);
     };
   }, []);
 
   useEffect(() => {
-    let i = 0;
-    setTypedText("");
-    const typeTimer = setInterval(() => {
-      if (i < fullText.length) {
-        setTypedText(fullText.slice(0, i + 1));
-        i++;
+    let sayac = 0;
+    setYazilanMetin("");
+    const yazmaZamanlayici = setInterval(() => {
+      if (sayac < tamMetin.length) {
+        setYazilanMetin(tamMetin.slice(0, sayac + 1));
+        sayac++;
       } else {
-        clearInterval(typeTimer);
+        clearInterval(yazmaZamanlayici);
       }
     }, 100);
 
-    return () => clearInterval(typeTimer);
-  }, [fullText]);
+    return () => clearInterval(yazmaZamanlayici);
+  }, [tamMetin]);
 
   useEffect(() => {
-    const displayVisitors = gaVisitors > 0 ? gaVisitors : visitors;
-    const targets = { followers: 50000, projects: 15, experience: 3, visitors: displayVisitors };
-    const duration = 2000;
-    const steps = 60;
-    const interval = duration / steps;
+    const hedefler = { takipci: 50000, proje: 3, deneyim: 3 };
+    const sure = 2000;
+    const adimlar = 60;
+    const aralik = sure / adimlar;
 
-    let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      const progress = step / steps;
-      setStats({
-        followers: Math.floor(targets.followers * progress),
-        projects: Math.floor(targets.projects * progress),
-        experience: Math.floor(targets.experience * progress),
-        visitors: Math.floor(targets.visitors * progress)
+    let adim = 0;
+    const zamanlayici = setInterval(() => {
+      adim++;
+      const ilerleme = adim / adimlar;
+      setIstatistikler({
+        takipci: Math.floor(hedefler.takipci * ilerleme),
+        proje: Math.floor(hedefler.proje * ilerleme),
+        deneyim: Math.floor(hedefler.deneyim * ilerleme)
       });
-      if (step >= steps) clearInterval(timer);
-    }, interval);
+      if (adim >= adimlar) clearInterval(zamanlayici);
+    }, aralik);
 
-    return () => clearInterval(timer);
-  }, [visitors, gaVisitors]);
+    return () => clearInterval(zamanlayici);
+  }, []);
 
-  if (isLoading) {
+  if (yukleniyor) {
     return (
       <motion.div
         className="loading-screen"
@@ -161,13 +140,13 @@ function Home({ lang, setLang }) {
     );
   }
 
-  const scrollToTop = () => {
+  const yukariCik = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const scrollToSection = (index) => {
-    const sections = document.querySelectorAll('section');
-    sections[index]?.scrollIntoView({ behavior: 'smooth' });
+  const bolumGit = (sira) => {
+    const bolumler = document.querySelectorAll('section');
+    bolumler[sira]?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -177,10 +156,10 @@ function Home({ lang, setLang }) {
           className="scroll-progress"
           style={{ scaleX: scrollYProgress }}
         />
-        {showScrollTop && (
+        {yukariGoster && (
           <motion.button
             className="scroll-to-top"
-            onClick={scrollToTop}
+            onClick={yukariCik}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
@@ -192,26 +171,26 @@ function Home({ lang, setLang }) {
         )}
 
         <div className="scroll-indicator">
-          {[0, 1, 2, 3, 4, 5].map((index) => (
+          {[0, 1, 2, 3, 4, 5].map((sira) => (
             <button
-              key={index}
-              className={`scroll-dot ${activeSection === index ? 'active' : ''}`}
-              onClick={() => scrollToSection(index)}
-              aria-label={`Go to section ${index + 1}`}
+              key={sira}
+              className={`scroll-dot ${aktifBolum === sira ? 'active' : ''}`}
+              onClick={() => bolumGit(sira)}
+              aria-label={`Bölüm ${sira + 1}'e git`}
             />
           ))}
         </div>
 
         <div className="lang-toggle">
           <button 
-            className={`lang-btn ${lang === 'tr' ? 'active' : ''}`}
-            onClick={() => setLang('tr')}
+            className={`lang-btn ${dil === 'tr' ? 'active' : ''}`}
+            onClick={() => setDil('tr')}
           >
             TR
           </button>
           <button 
-            className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
-            onClick={() => setLang('en')}
+            className={`lang-btn ${dil === 'en' ? 'active' : ''}`}
+            onClick={() => setDil('en')}
           >
             EN
           </button>
@@ -226,8 +205,8 @@ function Home({ lang, setLang }) {
           <motion.div 
             className="container parallax-layer"
             style={{
-              x: mousePosition.x,
-              y: mousePosition.y
+              x: fareKonum.x,
+              y: fareKonum.y
             }}
           >
             <motion.h1
@@ -236,14 +215,14 @@ function Home({ lang, setLang }) {
               transition={{ duration: 0.8, delay: 0.2 }}
               style={{ y: y1, opacity }}
             >
-              {t.hero.title}
+              {ceviriler.hero.title}
             </motion.h1>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
             >
-              {typedText}
+              {yazilanMetin}
             </motion.p>
             <motion.p
               initial={{ y: 30, opacity: 0 }}
@@ -251,7 +230,7 @@ function Home({ lang, setLang }) {
               transition={{ delay: 1.5 }}
               style={{ y: y2 }}
             >
-              {t.hero.university}
+              {ceviriler.hero.university}
             </motion.p>
 
             <motion.div
@@ -326,8 +305,8 @@ function Home({ lang, setLang }) {
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                <span className="stat-number">{stats.followers.toLocaleString()}+</span>
-                <span className="stat-label">{t.stats.followers}</span>
+                <span className="stat-number">{istatistikler.takipci.toLocaleString()}+</span>
+                <span className="stat-label">{ceviriler.stats.followers}</span>
               </motion.div>
               <motion.div
                 className="stat-card"
@@ -336,8 +315,8 @@ function Home({ lang, setLang }) {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                <span className="stat-number">{stats.projects}+</span>
-                <span className="stat-label">{t.stats.projects}</span>
+                <span className="stat-number">{istatistikler.proje}</span>
+                <span className="stat-label">{ceviriler.stats.projects}</span>
               </motion.div>
               <motion.div
                 className="stat-card"
@@ -346,19 +325,10 @@ function Home({ lang, setLang }) {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <span className="stat-number">{stats.experience}+</span>
-                <span className="stat-label">{t.stats.experience}</span>
+                <span className="stat-number">{istatistikler.deneyim}+</span>
+                <span className="stat-label">{ceviriler.stats.experience}</span>
               </motion.div>
-              <motion.div
-                className="stat-card"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <span className="stat-number">{stats.visitors.toLocaleString()}</span>
-                <span className="stat-label">{t.stats.visitors}</span>
-              </motion.div>
+
             </div>
           </div>
         </motion.section>
@@ -377,7 +347,7 @@ function Home({ lang, setLang }) {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              {t.about.title}
+              {ceviriler.about.title}
             </motion.h2>
             <div className="about-content">
               <motion.p
@@ -386,7 +356,7 @@ function Home({ lang, setLang }) {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                {t.about.p1}
+                {ceviriler.about.p1}
               </motion.p>
               <motion.p
                 initial={{ y: 30, opacity: 0 }}
@@ -394,7 +364,7 @@ function Home({ lang, setLang }) {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                {t.about.p2.split('@arkakanat')[0]}
+                {ceviriler.about.p2.split('@arkakanat')[0]}
                 <a 
                   href="https://instagram.com/arkakanat" 
                   target="_blank" 
@@ -417,7 +387,7 @@ function Home({ lang, setLang }) {
                 >
                   @arkakanat
                 </a>
-                {t.about.p2.split('@arkakanat')[1]}
+                {ceviriler.about.p2.split('@arkakanat')[1]}
               </motion.p>
               <motion.p
                 initial={{ y: 30, opacity: 0 }}
@@ -425,7 +395,7 @@ function Home({ lang, setLang }) {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 viewport={{ once: true }}
               >
-                {t.about.p3}
+                {ceviriler.about.p3}
               </motion.p>
             </div>
           </div>
@@ -445,29 +415,29 @@ function Home({ lang, setLang }) {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              {t.skills.title}
+              {ceviriler.skills.title}
             </motion.h2>
             <div className="skills-grid">
               {[
                 {
                   icon: Code,
-                  title: t.skills.software.title,
-                  description: t.skills.software.desc,
+                  title: ceviriler.skills.software.title,
+                  description: ceviriler.skills.software.desc,
                 },
                 {
                   icon: Palette,
-                  title: t.skills.design.title,
-                  description: t.skills.design.desc,
+                  title: ceviriler.skills.design.title,
+                  description: ceviriler.skills.design.desc,
                 },
                 {
                   icon: Video,
-                  title: t.skills.video.title,
-                  description: t.skills.video.desc,
+                  title: ceviriler.skills.video.title,
+                  description: ceviriler.skills.video.desc,
                 },
                 {
                   icon: Users,
-                  title: t.skills.community.title,
-                  description: t.skills.community.desc,
+                  title: ceviriler.skills.community.title,
+                  description: ceviriler.skills.community.desc,
                 },
               ].map((skill, index) => {
                 const Icon = skill.icon;
@@ -517,14 +487,14 @@ function Home({ lang, setLang }) {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              {t.projects.title}
+              {ceviriler.projects.title}
             </motion.h2>
             <div className="projects-grid">
               {[
                 {
                   id: 'arkakanat',
-                  title: t.projects.arkakanat.title,
-                  description: t.projects.arkakanat.desc,
+                  title: ceviriler.projects.arkakanat.title,
+                  description: ceviriler.projects.arkakanat.desc,
                   tags: [
                     "Social Media",
                     "Content Creation",
@@ -535,15 +505,15 @@ function Home({ lang, setLang }) {
                 },
                 {
                   id: 'web',
-                  title: t.projects.web.title,
-                  description: t.projects.web.desc,
+                  title: ceviriler.projects.web.title,
+                  description: ceviriler.projects.web.desc,
                   tags: ["Python", "JavaScript", "React.js", "HTML/CSS"],
                   hasDetails: true,
                 },
                 {
                   id: 'design',
-                  title: t.projects.design.title,
-                  description: t.projects.design.desc,
+                  title: ceviriler.projects.design.title,
+                  description: ceviriler.projects.design.desc,
                   tags: [
                     "Photoshop",
                     "Illustrator",
@@ -588,9 +558,9 @@ function Home({ lang, setLang }) {
                     {project.hasDetails && (
                       <button
                         className="view-details-btn"
-                        onClick={() => navigate('/projects')}
+                        onClick={() => sayfaGec('/projects')}
                       >
-                        {lang === 'tr' ? 'Projeleri Gör' : 'View Projects'}
+                        {dil === 'tr' ? 'Projeleri Gör' : 'View Projects'}
                       </button>
                     )}
                   </div>
@@ -614,7 +584,7 @@ function Home({ lang, setLang }) {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              {t.contact.title}
+              {ceviriler.contact.title}
             </motion.h2>
             <div className="contact-info">
               <motion.p
@@ -623,7 +593,7 @@ function Home({ lang, setLang }) {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                {t.contact.desc}
+                {ceviriler.contact.desc}
               </motion.p>
 
               <motion.div
@@ -690,4 +660,4 @@ function Home({ lang, setLang }) {
   );
 }
 
-export default Home;
+export default AnaSayfa;

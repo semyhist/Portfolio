@@ -2,11 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink, ArrowLeft, Code, Lightbulb, Wrench, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { projectsData } from "../projectsData";
+import { projeler } from "../projectsData";
 
-function Projects({ lang }) {
-  const navigate = useNavigate();
-  const t = lang === 'tr' ? {
+function Projeler({ dil }) {
+  const geriDon = useNavigate();
+  const metinler = dil === 'tr' ? {
     title: "Web Projelerim",
     back: "Ana Sayfaya Dön",
     github: "GitHub",
@@ -32,13 +32,13 @@ function Projects({ lang }) {
     <div className="projects-page">
       <motion.button
         className="back-button"
-        onClick={() => navigate('/')}
+        onClick={() => geriDon('/')}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         whileHover={{ x: -5 }}
       >
         <ArrowLeft size={20} />
-        {t.back}
+        {metinler.back}
       </motion.button>
 
       <div className="container">
@@ -48,7 +48,7 @@ function Projects({ lang }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {t.title}
+          {metinler.title}
         </motion.h1>
         <motion.p
           className="projects-subtitle"
@@ -56,79 +56,79 @@ function Projects({ lang }) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          {lang === 'tr' ? 'Geliştirdiğim web projeleri ve detayları' : 'Web projects I developed and their details'}
+          {dil === 'tr' ? 'Geliştirdiğim web projeleri ve detayları' : 'Web projects I developed and their details'}
         </motion.p>
 
         <div className="projects-list">
-          {projectsData.web.map((project, index) => (
+          {projeler.webProjeler.map((proje, index) => (
             <motion.div
-              key={project.id}
+              key={proje.id}
               className="project-detail-card"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
             >
               <div className="project-detail-header">
-                <h2>{project.name}</h2>
-                <p>{project.shortDesc}</p>
+                <h2>{proje.baslik[dil]}</h2>
+                <p>{proje.kisa[dil]}</p>
                 <div className="project-links">
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link-btn">
+                  <a href={proje.github} target="_blank" rel="noopener noreferrer" className="project-link-btn">
                     <Github size={18} />
-                    {t.github}
+                    {metinler.github}
                   </a>
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-link-btn demo">
+                  <a href={proje.demo} target="_blank" rel="noopener noreferrer" className="project-link-btn demo">
                     <ExternalLink size={18} />
-                    {t.demo}
+                    {metinler.demo}
                   </a>
                 </div>
               </div>
 
               <div className="project-detail-body">
                 <div className="detail-section">
-                  <h3><Code size={20} />{t.about}</h3>
-                  <p>{project.fullDesc}</p>
+                  <h3><Code size={20} />{metinler.about}</h3>
+                  <p>{proje.aciklama[dil]}</p>
                 </div>
 
                 <div className="detail-section">
-                  <h3><Lightbulb size={20} />{t.why}</h3>
-                  <p>{project.why}</p>
+                  <h3><Lightbulb size={20} />{metinler.why}</h3>
+                  <p>{proje.neden[dil]}</p>
                 </div>
 
                 <div className="detail-section">
-                  <h3><Wrench size={20} />{t.tech}</h3>
+                  <h3><Wrench size={20} />{metinler.tech}</h3>
                   <div className="tech-badges">
-                    {project.technologies.map((tech) => (
+                    {proje.teknolojiler.map((tech) => (
                       <span key={tech} className="tech-badge">{tech}</span>
                     ))}
                   </div>
                 </div>
 
                 <div className="detail-section">
-                  <h3><CheckCircle size={20} />{t.features}</h3>
+                  <h3><CheckCircle size={20} />{metinler.features}</h3>
                   <ul className="features-list">
-                    {project.features.map((feature, idx) => (
-                      <li key={idx}>{feature}</li>
+                    {proje.ozellikler[dil].map((ozellik, idx) => (
+                      <li key={idx}>{ozellik}</li>
                     ))}
                   </ul>
                 </div>
 
-                {project.stats && (
+                {proje.kodDagilimi && (
                   <div className="detail-section">
-                    <h3>{t.code}</h3>
+                    <h3>{metinler.code}</h3>
                     <div className="code-stats">
                       <div className="stat-bar">
-                        <div className="stat-fill html" style={{ width: project.stats.html }}>
-                          <span>HTML {project.stats.html}</span>
+                        <div className="stat-fill html" style={{ width: proje.kodDagilimi.html }}>
+                          <span>HTML {proje.kodDagilimi.html}</span>
                         </div>
                       </div>
                       <div className="stat-bar">
-                        <div className="stat-fill css" style={{ width: project.stats.css }}>
-                          <span>CSS {project.stats.css}</span>
+                        <div className="stat-fill css" style={{ width: proje.kodDagilimi.css }}>
+                          <span>CSS {proje.kodDagilimi.css}</span>
                         </div>
                       </div>
                       <div className="stat-bar">
-                        <div className="stat-fill js" style={{ width: project.stats.js }}>
-                          <span>JS {project.stats.js}</span>
+                        <div className="stat-fill js" style={{ width: proje.kodDagilimi.js }}>
+                          <span>JS {proje.kodDagilimi.js}</span>
                         </div>
                       </div>
                     </div>
@@ -143,4 +143,4 @@ function Projects({ lang }) {
   );
 }
 
-export default Projects;
+export default Projeler;

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Projects from "./pages/Projects";
+import AnaSayfa from "./pages/Home";
+import Projeler from "./pages/Projects";
 
 function App() {
-  const [lang, setLang] = useState("tr");
+  const [dil, setDil] = useState("tr");
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home lang={lang} setLang={setLang} />} />
-        <Route path="/projects" element={<Projects lang={lang} />} />
+        <Route path="/" element={<AnaSayfa dil={dil} setDil={setDil} />} />
+        <Route path="/projects" element={<Projeler dil={dil} />} />
       </Routes>
     </Router>
   );

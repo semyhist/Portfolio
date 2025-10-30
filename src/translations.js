@@ -53,7 +53,7 @@ export const translations = {
       followers: "Takipçi",
       projects: "Proje",
       experience: "Yıl Deneyim",
-      visitors: "Ziyaretçi"
+      technologies: "Teknoloji"
     }
   },
   en: {
@@ -110,7 +110,7 @@ export const translations = {
       followers: "Followers",
       projects: "Projects",
       experience: "Years Experience",
-      visitors: "Visitors"
+      technologies: "Technologies"
     }
   }
 };
