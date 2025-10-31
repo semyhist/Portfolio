@@ -90,6 +90,53 @@ export const projeler = {
         css: "29.9%",
         js: "19.2%"
       }
+    },
+    {
+      id: 3,
+      baslik: {
+        tr: "Batı Yıldırım Web Sitesi",
+        en: "Batı Yıldırım Website"
+      },
+      kisa: {
+        tr: "Profesyonel yarış pilotu için modern web sitesi",
+        en: "Modern website for professional racing driver"
+      },
+      aciklama: {
+        tr: "Türkiye'nin en genç Porsche Carrera Cup pilotu Batı Yıldırım'ın resmi web sitesi. React ile geliştirilmiş, tamamen responsive ve çift dilli bir platform.",
+        en: "Official website of Batı Yıldırım, Turkey's youngest Porsche Carrera Cup driver. A fully responsive and bilingual platform developed with React."
+      },
+      neden: {
+        tr: "Profesyonel bir yarış pilotunun kariyerini, başarılarını ve hedeflerini sergileyen modern bir web deneyimi yaratmak istedim.",
+        en: "I wanted to create a modern web experience showcasing a professional racing driver's career, achievements and goals."
+      },
+      teknolojiler: ["React 18", "React Router", "Framer Motion", "AOS", "React Icons", "CSS3"],
+      ozellikler: {
+        tr: [
+          "Çift dil desteği (TR/EN)",
+          "Tam responsive tasarım",
+          "Framer Motion animasyonları",
+          "Galeri ve filtreleme sistemi",
+          "Haberler bölümü",
+          "İletişim formu",
+          "Kariyer zaman çizelgesi"
+        ],
+        en: [
+          "Bilingual support (TR/EN)",
+          "Fully responsive design",
+          "Framer Motion animations",
+          "Gallery and filtering system",
+          "News section",
+          "Contact form",
+          "Career timeline"
+        ]
+      },
+      github: "https://github.com/semyhist/bati-yildirim",
+      demo: "https://batiyildirim.netlify.app",
+      kodDagilimi: {
+        html: "2.3%",
+        css: "41.5%",
+        js: "56.2%"
+      }
     }
   ]
 };
