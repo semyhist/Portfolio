@@ -6,11 +6,14 @@ import ErrorBoundary from "./ErrorBoundary";
 
 function App() {
   const [dil, setDil] = useState("tr");
-  // const [tema, setTema] = useState("dark");
-  // const [kullaniciVerisi, setKullaniciVerisi] = useState(null);
-  // useEffect(() => {
-  //   localStorage.setItem('dil', dil);
-  // }, [dil]);
+  useEffect(() => {
+    const savedLang = localStorage.getItem('dil');
+    if (savedLang) setDil(savedLang);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('dil', dil);
+    document.documentElement.lang = dil;
+  }, [dil]);
   return (
     <ErrorBoundary>
       <Router>

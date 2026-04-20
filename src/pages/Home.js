@@ -3,7 +3,6 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Github, Linkedin, Instagram, Twitter, Youtube, Code, Palette, Brain, ArrowUp, Mail, User, MessageSquare, Send, Award, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { translations } from "../translations";
-import { useCallback } from "react";
 
 function AnaSayfa({ dil, setDil }) {
   const sayfaGec = useNavigate();
@@ -19,16 +18,18 @@ function AnaSayfa({ dil, setDil }) {
   const ceviriler = translations[dil];
   const tamMetin = ceviriler.hero.subtitle;
   const sertifikaListesi = [
-    { title: { tr: 'C Programlama Dili', en: 'C Programming Language' }, issuer: 'BTK Akademi', date: '15.01.2026', file: '/sertificates/C_Programlama_Dili_Sertifika.pdf' },
-    { title: { tr: 'B2 Seviye İngilizce', en: 'B2 Level English' }, issuer: 'BTK Akademi', date: '04.03.2026', file: '/sertificates/B2_Seviye_İngilizce_Sertifika.pdf' },
-    { title: { tr: 'Anthropic Claude', en: 'Anthropic Claude' }, issuer: 'BTK Akademi', date: '22.02.2026', file: '/sertificates/Anthropic_Claude_Sertifika.pdf' },
-    { title: { tr: 'Perplexity AI', en: 'Perplexity AI' }, issuer: 'Perplexity', date: '23.02.2026', file: '/sertificates/Perplexity_Sertifika.pdf' }
+    { title: { tr: 'EF SET C1 İleri Seviye İngilizce', en: 'EF SET C1 Advanced English' }, issuer: 'EF SET', date: 'Nisan 2026', file: 'https://cert.efset.org/tr/VJ9bJN' },
+    { title: { tr: 'B2 Seviye İngilizce', en: 'B2 Level English' }, issuer: 'BTK Akademi', date: 'Mart 2026', file: '/sertificates/B2_Seviye_İngilizce_Sertifika.pdf' },
+    { title: { tr: 'Perplexity AI', en: 'Perplexity AI' }, issuer: 'BTK Akademi', date: 'Şubat 2026', file: '/sertificates/Perplexity_Sertifika.pdf' },
+    { title: { tr: 'Anthropic Claude AI', en: 'Anthropic Claude AI' }, issuer: 'BTK Akademi', date: 'Şubat 2026', file: '/sertificates/Anthropic_Claude_Sertifika.pdf' },
+    { title: { tr: 'C Programlama Dili', en: 'C Programming Language' }, issuer: 'BTK Akademi', date: 'Ocak 2026', file: '/sertificates/C_Programlama_Dili_Sertifika.pdf' },
+    { title: { tr: 'Fibabanka Staj Programı', en: 'Fibabanka Internship Program' }, issuer: 'Fibabanka', date: 'Ocak 2026', file: '/sertificates/Fibabanka_Staj_Sertifika.pdf' }
   ];
 
   useEffect(() => {
-    setTimeout(() => setYukleniyor(false), 1500); // loading suresi
+    setTimeout(() => setYukleniyor(false), 1500);
     const sayfaKaydir = () => {
-      setYukariGoster(window.scrollY > 500); // 500px sonra goster
+      setYukariGoster(window.scrollY > 500);
     };
     window.addEventListener('scroll', sayfaKaydir);
     return () => {
@@ -39,7 +40,6 @@ function AnaSayfa({ dil, setDil }) {
   useEffect(() => {
     let sayac = 0;
     setYazilanMetin("");
-    console.log("buraya girdi");
     const yazmaZamanlayici = setInterval(() => {
       if (sayac < tamMetin.length) {
         setYazilanMetin(tamMetin.slice(0, sayac + 1));
@@ -47,25 +47,22 @@ function AnaSayfa({ dil, setDil }) {
       } else {
         clearInterval(yazmaZamanlayici);
       }
-    }, 100); // typewriter hizi
+    }, 100);
     return () => clearInterval(yazmaZamanlayici);
   }, [tamMetin]);
 
   useEffect(() => {
-    // const hedefler = { commit: 50, proje: 8, deneyim: 4 };
-    // const animasyonSuresi = 3000;
-    // setInterval kullanmak daha iyi olabilir mi?
     let adim = 0;
     const zamanlayici = setInterval(() => {
       adim++;
-      const ilerleme = adim / 60; // 60 adim
+      const ilerleme = adim / 60;
       setIstatistikler({
         commit: Math.floor(40 * ilerleme),
-        proje: Math.floor(6 * ilerleme),
+        proje: Math.floor(11 * ilerleme),
         deneyim: Math.floor(3 * ilerleme)
       });
       if (adim >= 60) clearInterval(zamanlayici);
-    }, 2000 / 60); // toplam 2 saniye
+    }, 2000 / 60);
     return () => clearInterval(zamanlayici);
   }, []);
 
@@ -93,7 +90,6 @@ function AnaSayfa({ dil, setDil }) {
     e.preventDefault();
     setGonderiliyor(true);
     setFormDurum('');
-    console.log("test1");
     try {
       const mailtoLink = `mailto:aydnsemih61@gmail.com?subject=${encodeURIComponent(formVerisi.subject)}&body=${encodeURIComponent(`İsim: ${formVerisi.name}\nEmail: ${formVerisi.email}\n\nMesaj:\n${formVerisi.message}`)}`;
       window.location.href = mailtoLink;

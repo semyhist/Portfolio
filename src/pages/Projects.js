@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Github, ExternalLink, ArrowLeft, Code, Lightbulb, Wrench, CheckCircle } from "lucide-react";
+import { Github, ExternalLink, ArrowLeft, Code, Lightbulb, Wrench, CheckCircle, Terminal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { projeler } from "../projectsData";
 
 function Projeler({ dil }) {
   const geriDon = useNavigate();
-  const [aktifProje, setAktifProje] = useState(null);
+  const [aktifKategori, setAktifKategori] = useState('web');
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const metinler = dil === 'tr' ? {
-    title: "Web Projelerim",
+    title: "Projelerim",
+    webTitle: "Web Projeleri",
+    cTitle: "C Projeleri",
+    otherTitle: "Diğer Projeler",
     back: "Ana Sayfa",
     github: "GitHub",
     demo: "Demo",
@@ -18,7 +24,10 @@ function Projeler({ dil }) {
     features: "Özellikler",
     code: "Kod Dağılımı"
   } : {
-    title: "My Web Projects",
+    title: "My Projects",
+    webTitle: "Web Projects",
+    cTitle: "C Projects",
+    otherTitle: "Other Projects",
     back: "Home",
     github: "GitHub",
     demo: "Demo",
@@ -28,7 +37,7 @@ function Projeler({ dil }) {
     features: "Features",
     code: "Code Distribution"
   };
-  console.log("test1");
+  const tumProjeler = aktifKategori === 'web' ? (projeler.webProjeler || []) : aktifKategori === 'c' ? (projeler.cProjeler || []) : (projeler.digerProjeler || []);
   return (
     <div className="projects-page">
       <button className="back-button" onClick={() => geriDon('/')}>
@@ -39,11 +48,22 @@ function Projeler({ dil }) {
         <motion.h1 className="projects-page-title" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           {metinler.title}
         </motion.h1>
-        <motion.p className="projects-subtitle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-          {dil === 'tr' ? 'Geliştirdiğim web projeleri' : 'Web projects I developed'}
-        </motion.p>
+        <div className="project-categories">
+          <button className={`category-btn ${aktifKategori === 'web' ? 'active' : ''}`} onClick={() => setAktifKategori('web')}>
+            <Code size={20} />
+            {metinler.webTitle}
+          </button>
+          <button className={`category-btn ${aktifKategori === 'c' ? 'active' : ''}`} onClick={() => setAktifKategori('c')}>
+            <Terminal size={20} />
+            {metinler.cTitle}
+          </button>
+          <button className={`category-btn ${aktifKategori === 'other' ? 'active' : ''}`} onClick={() => setAktifKategori('other')}>
+            <Wrench size={20} />
+            {metinler.otherTitle}
+          </button>
+        </div>
         <div className="projects-list">
-          {projeler.webProjeler.map((proje, index) => (
+          {tumProjeler.map((proje, index) => (
             <motion.div key={proje.id} className="project-detail-card" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.2, duration: 0.6 }}>
               <div className="project-detail-header">
                 <h2>{proje.baslik[dil]}</h2>
@@ -53,10 +73,12 @@ function Projeler({ dil }) {
                     <Github size={18} />
                     {metinler.github}
                   </a>
-                  <a href={proje.demo} target="_blank" rel="noopener noreferrer" className="project-link-btn">
-                    <ExternalLink size={18} />
-                    {metinler.demo}
-                  </a>
+                  {proje.demo && proje.demo !== '#' && (
+                    <a href={proje.demo} target="_blank" rel="noopener noreferrer" className="project-link-btn">
+                      <ExternalLink size={18} />
+                      {metinler.demo}
+                    </a>
+                  )}
                 </div>
               </div>
               <div className="project-detail-body">
@@ -88,21 +110,27 @@ function Projeler({ dil }) {
                   <div className="detail-section">
                     <h3>{metinler.code}</h3>
                     <div className="code-stats">
-                      <div className="stat-bar">
-                        <div className="stat-fill" style={{ width: proje.kodDagilimi.html }}>
-                          <span>HTML {proje.kodDagilimi.html}</span>
+                      {proje.kodDagilimi.html && (
+                        <div className="stat-bar">
+                          <div className="stat-fill" style={{ width: proje.kodDagilimi.html }}>
+                            <span>HTML {proje.kodDagilimi.html}</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="stat-bar">
-                        <div className="stat-fill" style={{ width: proje.kodDagilimi.css }}>
-                          <span>CSS {proje.kodDagilimi.css}</span>
+                      )}
+                      {proje.kodDagilimi.css && (
+                        <div className="stat-bar">
+                          <div className="stat-fill" style={{ width: proje.kodDagilimi.css }}>
+                            <span>CSS {proje.kodDagilimi.css}</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="stat-bar">
-                        <div className="stat-fill" style={{ width: proje.kodDagilimi.js }}>
-                          <span>JS {proje.kodDagilimi.js}</span>
+                      )}
+                      {proje.kodDagilimi.js && (
+                        <div className="stat-bar">
+                          <div className="stat-fill" style={{ width: proje.kodDagilimi.js }}>
+                            <span>JS {proje.kodDagilimi.js}</span>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 )}
