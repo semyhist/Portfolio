@@ -8,7 +8,7 @@ function AnaSayfa({ dil, setDil }) {
   const sayfaGec = useNavigate();
   const [yukleniyor, setYukleniyor] = useState(true);
   const [yazilanMetin, setYazilanMetin] = useState("");
-  const [istatistikler, setIstatistikler] = useState({ commit: 0, proje: 0, deneyim: 0 });
+  const [istatistikler, setIstatistikler] = useState({ commit: 0, proje: 0, erisim: 0 });
   const [yukariGoster, setYukariGoster] = useState(false);
   const [sliderIndeks, setSliderIndeks] = useState(0);
   const [formVerisi, setFormVerisi] = useState({ name: '', email: '', subject: '', message: '' });
@@ -59,7 +59,7 @@ function AnaSayfa({ dil, setDil }) {
       setIstatistikler({
         commit: Math.floor(40 * ilerleme),
         proje: Math.floor(11 * ilerleme),
-        deneyim: Math.floor(3 * ilerleme)
+        erisim: Math.floor(18 * ilerleme)
       });
       if (adim >= 60) clearInterval(zamanlayici);
     }, 2000 / 60);
@@ -265,8 +265,8 @@ function AnaSayfa({ dil, setDil }) {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <span className="stat-number">{istatistikler.deneyim}+</span>
-                <span className="stat-label">{ceviriler.stats.experience}</span>
+                <span className="stat-number">{istatistikler.erisim}M</span>
+                <span className="stat-label">{ceviriler.stats.reach}</span>
               </motion.div>
             </div>
           </div>

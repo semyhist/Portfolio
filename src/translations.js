@@ -2,14 +2,14 @@ export const ceviriler = {
   tr: {
     hero: {
       title: "Semih Aydın",
-      subtitle: "Dijital Deneyimler Yaratıyorum | Bilgisayar Mühendisliği Öğrencisi",
-      university: "Trabzon Üniversitesi - 1. Sınıf"
+      subtitle: "Motor Sporları Tutkunu & Web Developer | Dijital Deneyimler Yaratıyorum",
+      university: "Trabzon Üniversitesi - Bilgisayar Mühendisliği"
     },
     about: {
       title: "Hakkımda",
-      p1: "Trabzon Üniversitesi'nde Bilgisayar Mühendisliği öğrencisiyim. Web geliştirme alanında aktif olarak çalışıyorum; C, JavaScript, React.js, Python, HTML ve SQL teknolojilerinde deneyim sahibiyim.",
-      p2: "Mart 2024'ten beri 56.000'den fazla takipçiye sahip motor sporları medya platformu Arka Kanat'ın kurucusu ve yöneticisiyim. Platform, Formula 1 ve motor sporları içerikleriyle geniş bir kitleye ulaşıyor. Aynı zamanda Fibabanka'da Bilgi İşlem departmanında stajyer olarak çalıştım.",
-      p3: "Yazılım geliştirme, proje yönetimi ve dijital topluluk yönetiminde aktif olarak deneyim kazanmaya devam ediyorum. Web teknolojileri, yapay zeka, veri bilimi ve otomotiv yazılımları üzerine projeler geliştiriyorum."
+      p1: "Trabzon Üniversitesi'nde Bilgisayar Mühendisliği öğrencisiyim. Motor sporları tutkusuyla web geliştirme becerilerimi birleştiriyorum. React, JavaScript, C ve Java teknolojilerinde deneyim sahibiyim.",
+      p2: "Mart 2024'ten beri 56.000+ takipçiye sahip motor sporları medya platformu Arka Kanat'ın kurucusu ve yöneticisiyim. 3 ayda 18 milyon erişim elde ettik. Formula 1 ve motor sporları içerikleriyle geniş bir kitleye ulaşıyoruz. Fibabanka'da Bilgi İşlem departmanında büyük veri setleriyle çalışma ve SQL sorgu optimizasyonu deneyimi kazandım.",
+      p3: "Yarış teknolojileri, telemetri sistemleri ve otomotiv yazılımları üzerine projeler geliştiriyorum. Yapay zeka ve veri bilimi ile motor sporlarını birleştirerek geleceğin yarış teknolojilerine katkı sağlamayı hedefliyorum."
     },
     skills: {
       title: "Yeteneklerim",
@@ -29,20 +29,20 @@ export const ceviriler = {
     },
     certificates: { title: "Sertifikalar & Eğitimler", desc: "Aldığım sertifikalar ve tamamladığım eğitimler", empty: "Henüz sertifika bulunmuyor. Yakında eklenecek!" },
     testimonials: { title: "Referanslar", desc: "Benimle çalışmak veya referans olmak için iletişime geçebilirsiniz.", empty: "Henüz referans bulunmuyor.", contact: "Referans olmak için benimle iletişime geçin" },
-    stats: { commits: "Commit", projects: "Proje", experience: "Yıl Deneyim", technologies: "Teknoloji" },
+    stats: { commits: "Commit", projects: "Proje", experience: "Yıl Deneyim", reach: "Milyon Erişim" },
     footer: { rights: "Tüm hakları saklıdır.", made: "Semih Aydın tarafından yapıldı" }
   },
   en: {
     hero: {
       title: "Semih Aydın",
-      subtitle: "Building Digital Experiences | Computer Engineering Student",
-      university: "Trabzon University - 1st Year"
+      subtitle: "Motorsports Enthusiast & Web Developer | Building Digital Experiences",
+      university: "Trabzon University - Computer Engineering"
     },
     about: {
       title: "About Me",
-      p1: "I am a Computer Engineering student at Trabzon University. I actively work in web development with experience in C, JavaScript, React.js, Python, HTML, and SQL technologies.",
-      p2: "Since March 2024, I am the founder and manager of Arka Kanat, a motorsports media platform with over 56,000 followers. The platform reaches a wide audience with Formula 1 and motorsports content. I also worked as an intern in the IT department at Fibabanka.",
-      p3: "I am actively building my experience in software development, project management, and digital community management. I develop projects on web technologies, artificial intelligence, data science, and automotive software."
+      p1: "I am a Computer Engineering student at Trabzon University. I combine my passion for motorsports with web development skills. Experienced in React, JavaScript, C, and Java technologies.",
+      p2: "Since March 2024, I am the founder and manager of Arka Kanat, a motorsports media platform with 56,000+ followers. We achieved 18 million reach in 3 months. We reach a wide audience with Formula 1 and motorsports content. I gained experience working with large datasets and SQL query optimization at Fibabanka's IT department.",
+      p3: "I develop projects on racing technologies, telemetry systems, and automotive software. I aim to contribute to the future of racing technology by combining artificial intelligence and data science with motorsports."
     },
     skills: {
       title: "My Skills",
@@ -62,7 +62,7 @@ export const ceviriler = {
     },
     certificates: { title: "Certificates & Education", desc: "Certificates I received and courses I completed", empty: "No certificates yet. Coming soon!" },
     testimonials: { title: "Testimonials", desc: "Contact me to work together or become a reference.", empty: "No testimonials yet.", contact: "Contact me to become a reference" },
-    stats: { commits: "Commits", projects: "Projects", experience: "Years Experience", technologies: "Technologies" },
+    stats: { commits: "Commits", projects: "Projects", experience: "Years Experience", reach: "Million Reach" },
     footer: { rights: "All rights reserved.", made: "Made by Semih Aydın" }
   }
 };
