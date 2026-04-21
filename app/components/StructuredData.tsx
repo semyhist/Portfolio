@@ -5,14 +5,7 @@ export default function StructuredData() {
     name: 'Semih Aydın',
     url: 'https://semihaydin.dev',
     image: 'https://semihaydin.dev/profile.jpg',
-    sameAs: [
-      'https://www.linkedin.com/in/aydinsemih61',
-      'https://github.com/semyhist',
-      'https://twitter.com/semyhist',
-      'https://instagram.com/semjhaydin',
-      'https://youtube.com/@semjhaydin'
-    ],
-    jobTitle: 'Software Engineer & Motorsports Data Analyst',
+    jobTitle: 'Software Engineer',
     worksFor: {
       '@type': 'Organization',
       name: 'Arka Kanat'
@@ -21,6 +14,13 @@ export default function StructuredData() {
       '@type': 'CollegeOrUniversity',
       name: 'Trabzon Üniversitesi'
     },
+    sameAs: [
+      'https://github.com/semyhist',
+      'https://www.linkedin.com/in/aydinsemih61',
+      'https://twitter.com/semyhist',
+      'https://instagram.com/semjhaydin',
+      'https://youtube.com/@semjhaydin'
+    ],
     knowsAbout: [
       'Web Development',
       'React',
@@ -28,12 +28,14 @@ export default function StructuredData() {
       'JavaScript',
       'TypeScript',
       'C Programming',
+      'Python',
       'Motorsports',
       'Formula 1',
       'Data Analysis',
-      'Telemetry Systems'
+      'Telemetry Systems',
+      'Software Engineering'
     ],
-    description: 'Computer Engineering student at Trabzon University. Founder of Arka Kanat motorsports media platform with 56K+ followers and 18M monthly reach.'
+    description: 'Computer Engineering student at Trabzon University. Software Engineer specializing in web development and motorsports data analysis. Founder of Arka Kanat motorsports media platform with 56K+ followers and 18M monthly reach.'
   }
 
   return (
