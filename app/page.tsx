@@ -94,17 +94,20 @@ export default function Home() {
         <section className="stats-section">
           <div className="container">
             <div className="stats-grid">
-              <article className="stat-card">
+              <article className="stat-card" title="GitHub ve projelerimde toplam commit sayısı">
                 <span className="stat-number">40+</span>
                 <span className="stat-label">{tr.stats.commits}</span>
+                <span className="stat-desc">GitHub Reposunda</span>
               </article>
-              <article className="stat-card">
+              <article className="stat-card" title="Tamamladığım web, mobil ve C projeleri">
                 <span className="stat-number">11</span>
                 <span className="stat-label">{tr.stats.projects}</span>
+                <span className="stat-desc">Web & C Projeleri</span>
               </article>
-              <article className="stat-card">
+              <article className="stat-card" title="Arka Kanat Instagram hesabında 3 ayda ulaşılan toplam kişi sayısı">
                 <span className="stat-number">18M</span>
                 <span className="stat-label">{tr.stats.reach}</span>
+                <span className="stat-desc">Arka Kanat'ta 3 Ayda</span>
               </article>
             </div>
           </div>
@@ -156,31 +159,72 @@ export default function Home() {
             <div className="projects-grid">
               <article className="project-card">
                 <div className="project-content">
-                  <h3 className="project-title">{tr.projects.web.title}</h3>
-                  <p className="project-description">{tr.projects.web.desc}</p>
+                  <h3 className="project-title">Batı Yıldırım Web Sitesi</h3>
+                  <p className="project-description">Türkiye'nin en genç Porsche Carrera Cup pilotu için React ile geliştirilmiş, çift dilli profesyonel web sitesi.</p>
                   <div className="project-tech">
-                    <span className="tech-tag">Python</span>
-                    <span className="tech-tag">JavaScript</span>
-                    <span className="tech-tag">React.js</span>
-                    <span className="tech-tag">HTML/CSS</span>
+                    <span className="tech-tag">React 18</span>
+                    <span className="tech-tag">Framer Motion</span>
+                    <span className="tech-tag">React Router</span>
+                    <span className="tech-tag">CSS3</span>
                   </div>
-                  <Link href="/projects">
-                    <button className="view-details-btn">Projeleri Gör</button>
-                  </Link>
+                  <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+                    <a href="https://github.com/semyhist/batiyildirim" target="_blank" rel="noopener noreferrer" className="view-details-btn" style={{ textDecoration: 'none' }}>
+                      <Github size={16} style={{ marginRight: '5px' }} />
+                      GitHub
+                    </a>
+                    <a href="https://batiyildirim.netlify.app" target="_blank" rel="noopener noreferrer" className="view-details-btn" style={{ textDecoration: 'none' }}>
+                      Demo
+                    </a>
+                  </div>
                 </div>
               </article>
               <article className="project-card">
                 <div className="project-content">
-                  <h3 className="project-title">{tr.projects.mobile.title}</h3>
-                  <p className="project-description">{tr.projects.mobile.desc}</p>
+                  <h3 className="project-title">Arka Kanat - Countdown & Linktree</h3>
+                  <p className="project-description">56K+ takipçili Instagram hesabı için React ve Vite ile geliştirilmiş modern countdown ve link yönetim sistemi.</p>
                   <div className="project-tech">
-                    <span className="tech-tag">React Native</span>
+                    <span className="tech-tag">React</span>
+                    <span className="tech-tag">Vite</span>
                     <span className="tech-tag">JavaScript</span>
-                    <span className="tech-tag">Mobile UI</span>
-                    <span className="tech-tag">Cross-platform</span>
+                    <span className="tech-tag">CSS3</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+                    <a href="https://github.com/semyhist/arkakanat" target="_blank" rel="noopener noreferrer" className="view-details-btn" style={{ textDecoration: 'none' }}>
+                      <Github size={16} style={{ marginRight: '5px' }} />
+                      GitHub
+                    </a>
+                    <a href="https://arkakanat.netlify.app" target="_blank" rel="noopener noreferrer" className="view-details-btn" style={{ textDecoration: 'none' }}>
+                      Demo
+                    </a>
                   </div>
                 </div>
               </article>
+              <article className="project-card">
+                <div className="project-content">
+                  <h3 className="project-title">TOGG Konsept Web Sitesi</h3>
+                  <p className="project-description">TOGG için modern ve interaktif web sitesi. SUV ve Sedan modelleri için detaylı sayfalar ve galeri sistemi.</p>
+                  <div className="project-tech">
+                    <span className="tech-tag">HTML5</span>
+                    <span className="tech-tag">CSS3</span>
+                    <span className="tech-tag">JavaScript</span>
+                    <span className="tech-tag">Font Awesome</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+                    <a href="https://github.com/semyhist/togg-konsept" target="_blank" rel="noopener noreferrer" className="view-details-btn" style={{ textDecoration: 'none' }}>
+                      <Github size={16} style={{ marginRight: '5px' }} />
+                      GitHub
+                    </a>
+                    <a href="https://toggkonsept.netlify.app" target="_blank" rel="noopener noreferrer" className="view-details-btn" style={{ textDecoration: 'none' }}>
+                      Demo
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <Link href="/projects">
+                <button className="view-details-btn" style={{ fontSize: '18px', padding: '15px 40px' }}>Tüm Projeleri Gör</button>
+              </Link>
             </div>
           </div>
         </section>

@@ -246,6 +246,16 @@ html {
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat-desc {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  font-weight: 400;
+  display: block;
+  margin-top: 5px;
 }
 
 .about-content {
@@ -309,9 +319,15 @@ html {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
   margin-top: 60px;
+}
+
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .project-card {
