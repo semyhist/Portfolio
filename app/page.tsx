@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
-import HomePage from './components/HomePage'
+import HomeClient from './components/HomeClient'
+import { translations } from './lib/translations'
 
 export const metadata: Metadata = {
   title: 'Semih Aydın | Motor Sporları & Web Developer Portfolio',
@@ -74,5 +75,107 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  return <HomePage />
+  const tr = translations.tr
+  
+  return (
+    <>
+      {/* SEO için server-side rendered içerik */}
+      <noscript>
+        <div className="App">
+          <nav className="navbar">
+            <div className="navbar-content">
+              <a href="#hero" className="navbar-logo">SA</a>
+              <div className="navbar-links">
+                <a href="#about" className="navbar-link">Hakkımda</a>
+                <a href="#skills" className="navbar-link">Yetenekler</a>
+                <a href="#projects" className="navbar-link">Projeler</a>
+                <a href="#certificates" className="navbar-link">Sertifikalar</a>
+                <a href="#contact" className="navbar-link">İletişim</a>
+              </div>
+            </div>
+          </nav>
+
+          <section className="hero" id="hero">
+            <div className="hero-bg">
+              <div className="hero-grid"></div>
+            </div>
+            <div className="hero-content">
+              <h1>{tr.hero.title}</h1>
+              <p>{tr.hero.subtitle}</p>
+              <p className="university">{tr.hero.university}</p>
+            </div>
+          </section>
+
+          <section className="stats-section">
+            <div className="container">
+              <div className="stats-grid">
+                <div className="stat-card">
+                  <span className="stat-number">40+</span>
+                  <span className="stat-label">{tr.stats.commits}</span>
+                </div>
+                <div className="stat-card">
+                  <span className="stat-number">11</span>
+                  <span className="stat-label">{tr.stats.projects}</span>
+                </div>
+                <div className="stat-card">
+                  <span className="stat-number">18M</span>
+                  <span className="stat-label">{tr.stats.reach}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="section" id="about">
+            <div className="container">
+              <h2>{tr.about.title}</h2>
+              <div className="about-content">
+                <p>{tr.about.p1}</p>
+                <p>{tr.about.p2}</p>
+                <p>{tr.about.p3}</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="section" id="skills">
+            <div className="container">
+              <h2>{tr.skills.title}</h2>
+              <div className="skills-grid">
+                <div className="skill-card">
+                  <h3>{tr.skills.software.title}</h3>
+                  <p>{tr.skills.software.desc}</p>
+                </div>
+                <div className="skill-card">
+                  <h3>{tr.skills.design.title}</h3>
+                  <p>{tr.skills.design.desc}</p>
+                </div>
+                <div className="skill-card">
+                  <h3>{tr.skills.problem.title}</h3>
+                  <p>{tr.skills.problem.desc}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="section" id="contact">
+            <div className="container">
+              <h2>{tr.contact.title}</h2>
+              <p className="section-desc">{tr.contact.desc}</p>
+            </div>
+          </section>
+
+          <footer className="footer">
+            <div className="container">
+              <div className="footer-content">
+                <p>© 2025 Semih Aydın. {tr.footer.rights}</p>
+                <p className="footer-made">{tr.footer.made}</p>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </noscript>
+      
+      {/* JavaScript aktif kullanıcılar için */}
+      <HomeClient />
+    </>
+  )
 }

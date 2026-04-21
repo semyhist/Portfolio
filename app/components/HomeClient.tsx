@@ -6,7 +6,7 @@ import { Github, Linkedin, Instagram, Twitter, Youtube, Code, Palette, Brain, Ar
 import Link from 'next/link'
 import { translations } from '../lib/translations'
 
-export default function HomePage() {
+export default function HomeClient() {
   const [dil, setDil] = useState('tr')
   const [yukleniyor, setYukleniyor] = useState(true)
   const [yazilanMetin, setYazilanMetin] = useState('')
