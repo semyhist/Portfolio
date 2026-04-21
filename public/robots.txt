@@ -1,16 +1,12 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /private/
-
-User-agent: Googlebot
-Allow: /
-
+# Google AI Training Bot - EXPLICITLY ALLOWED
 User-agent: Google-Extended
 Allow: /
+Disallow:
 
+# Google Gemini Real-time Access
 User-agent: GoogleOther
 Allow: /
+Disallow:
 
 User-agent: GoogleOther-Image
 Allow: /
@@ -18,25 +14,40 @@ Allow: /
 User-agent: GoogleOther-Video
 Allow: /
 
+# Standard Googlebot
+User-agent: Googlebot
+Allow: /
+
+# OpenAI Bots
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
+# Common Crawl
 User-agent: CCBot
 Allow: /
 
+# Anthropic Claude
 User-agent: anthropic-ai
 Allow: /
 
 User-agent: Claude-Web
 Allow: /
 
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
+# ByteDance/TikTok
 User-agent: Bytespider
 Allow: /
+
+# All other bots
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /private/
 
 Sitemap: https://semihaydin.dev/sitemap.xml

@@ -4,11 +4,6 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api/', '/private/'],
-      },
-      {
         userAgent: 'Google-Extended',
         allow: '/',
         disallow: [],
@@ -16,6 +11,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'GoogleOther',
         allow: '/',
+        disallow: [],
       },
       {
         userAgent: 'GoogleOther-Image',
@@ -23,6 +19,10 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: 'GoogleOther-Video',
+        allow: '/',
+      },
+      {
+        userAgent: 'Googlebot',
         allow: '/',
       },
       {
@@ -52,6 +52,11 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'Bytespider',
         allow: '/',
+      },
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/', '/private/'],
       },
     ],
     sitemap: 'https://semihaydin.dev/sitemap.xml',

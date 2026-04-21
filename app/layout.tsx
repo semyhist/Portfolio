@@ -65,6 +65,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  other: {
+    'google-extended': 'index, follow',
+  },
   alternates: {
     canonical: 'https://semihaydin.dev',
   },
