@@ -13,6 +13,18 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
       {
+        userAgent: 'GoogleOther',
+        allow: '/',
+      },
+      {
+        userAgent: 'GoogleOther-Image',
+        allow: '/',
+      },
+      {
+        userAgent: 'GoogleOther-Video',
+        allow: '/',
+      },
+      {
         userAgent: 'GPTBot',
         allow: '/',
       },
@@ -30,6 +42,14 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: 'Claude-Web',
+        allow: '/',
+      },
+      {
+        userAgent: 'PerplexityBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'Bytespider',
         allow: '/',
       },
     ],

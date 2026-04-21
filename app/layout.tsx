@@ -71,6 +71,10 @@ export const metadata: Metadata = {
   verification: {
     google: 'your-google-verification-code',
   },
+  other: {
+    'google-site-verification': 'your-google-verification-code',
+    'referrer': 'origin-when-cross-origin',
+  },
 }
 
 export default function RootLayout({
