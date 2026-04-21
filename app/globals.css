@@ -8,10 +8,6 @@
     --font-geist-mono: 'Courier New', monospace;
   }
   
-  * {
-    @apply border-border;
-  }
-  
   body {
     @apply bg-carbon-100 text-white antialiased;
   }
