@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://semihaydin.dev',
   },
+  other: {
+    'version': '2.0',
+  },
 }
 
 export default function Home() {
