@@ -1,6 +1,6 @@
 # Semih Aydın - Portfolio
 
-Modern portfolio website built with React.js and Framer Motion.
+Modern portfolio website built with Next.js 14 and Framer Motion.
 
 ## Features
 
@@ -8,16 +8,17 @@ Modern portfolio website built with React.js and Framer Motion.
 - Fully responsive
 - Smooth animations with Framer Motion
 - Multilingual support (TR/EN)
-- Parallax scrolling effects
 - SEO optimized
+- Server-side rendering with Next.js
 
 ## Technologies
 
-- React.js
+- Next.js 14
+- React 18
+- TypeScript
 - Framer Motion
 - Lucide React
 - CSS3
-- HTML5
 
 ## Installation
 
@@ -25,33 +26,41 @@ Modern portfolio website built with React.js and Framer Motion.
 git clone https://github.com/semyhist/portfolio.git
 cd portfolio
 npm install
-npm start
+npm run dev
 ```
 
 ## Build
 
 ```bash
 npm run build
+npm start
 ```
 
 ## Project Structure
 
 ```
 portfolio/
+├── app/
+│   ├── lib/
+│   │   ├── translations.ts
+│   │   └── projectsData.ts
+│   ├── projects/
+│   │   └── page.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
 ├── public/
-├── src/
-│   ├── App.js
-│   ├── index.js
-│   ├── index.css
-│   └── translations.js
 ├── package.json
+├── next.config.js
+├── tsconfig.json
 └── README.md
 ```
 
 ## Customization
 
-Edit `src/translations.js` to update content in both Turkish and English.
-Modify colors in `src/index.css`.
+Edit `app/lib/translations.ts` to update content in both Turkish and English.
+Edit `app/lib/projectsData.ts` to update project information.
+Modify colors in `app/globals.css`.
 
 ## Contact
 
@@ -60,8 +69,6 @@ Modify colors in `src/index.css`.
 - Instagram: [semyhist](https://instagram.com/semyhist)
 - Twitter: [semyhist](https://twitter.com/semyhist)
 - YouTube: [semyhist](https://youtube.com/@semyhist)
-
-
 
 ## License
 
