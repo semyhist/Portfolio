@@ -4,3 +4,20 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Next.js SSR için gerekli ayarlar
+[functions]
+  node_bundler = "esbuild"
+  included_files = [".next/**"]
+
+# Cache optimizasyonu
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Redirect kuralları (SPA fallback'i devre dışı)
+[[redirects]]
+  from = "/*"
+  to = "/404"
+  status = 404
+  force = false
