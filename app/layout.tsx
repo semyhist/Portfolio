@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import StructuredData from './components/StructuredData'
 
 export const metadata: Metadata = {
   title: 'Semih Aydın - Portfolio',
@@ -20,6 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr" className="scroll-smooth">
+      <head>
+        <StructuredData />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   )
