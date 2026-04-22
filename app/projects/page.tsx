@@ -1,106 +1,110 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import Image from 'next/image'
 import { projeler } from '../lib/projectsData'
 import ProjectsClient from '../components/ProjectsClient'
 
+const BASE_URL = 'https://semihaydin.dev'
+
 export const metadata: Metadata = {
-  title: 'Projeler | Semih Aydın',
-  description: 'Web projeleri, C programlama projeleri ve diğer yazılım geliştirme çalışmalarım. Python, JavaScript, React.js, Next.js, HTML/CSS ile geliştirilen projeler.',
+  title: 'Projeler',
+  description:
+    'Semih Aydın\'ın tüm projeleri — React, Next.js, JavaScript ile geliştirilmiş web uygulamaları, C programlama projeleri ve 13+ GitHub reposu.',
+  keywords: [
+    'Semih Aydın Projeler',
+    'React Projeleri',
+    'Next.js Portfolio',
+    'JavaScript Projeleri',
+    'C Programlama',
+    'Web Geliştirme Projeleri',
+    'GitHub Projeleri',
+    'TOGG Konsept',
+    'Batı Yıldırım Web Sitesi',
+    'Fidan Sigorta',
+    'CAN Bus Simulator',
+  ],
   alternates: {
-    canonical: 'https://semihaydin.dev/projects',
+    canonical: `${BASE_URL}/projects`,
+    languages: {
+      'tr-TR': `${BASE_URL}/projects`,
+      'en-US': `${BASE_URL}/projects`,
+    },
   },
   openGraph: {
     title: 'Projeler | Semih Aydın',
-    description: 'Web projeleri, C programlama projeleri ve diğer yazılım geliştirme çalışmalarım.',
-    url: 'https://semihaydin.dev/projects',
+    description:
+      'React, Next.js, JavaScript ile geliştirilmiş web uygulamaları, C projeleri ve 13+ GitHub reposu.',
+    url: `${BASE_URL}/projects`,
     type: 'website',
-  }
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Semih Aydın - Projeler',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Projeler | Semih Aydın',
+    description: 'React, Next.js, C ve JavaScript projeleri.',
+    images: ['/images/og-image.png'],
+  },
+}
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Semih Aydın — Projeler',
+  description: 'Web uygulamaları, C projeleri ve GitHub repoları',
+  url: `${BASE_URL}/projects`,
+  author: {
+    '@type': 'Person',
+    name: 'Semih Aydın',
+    url: BASE_URL,
+  },
+  hasPart: [
+    { '@type': 'SoftwareSourceCode', name: 'TOGG Konsept', programmingLanguage: 'JavaScript', codeRepository: 'https://github.com/semyhist/togg-konsept' },
+    { '@type': 'SoftwareSourceCode', name: 'Batı Yıldırım', programmingLanguage: 'JavaScript', codeRepository: 'https://github.com/semyhist/batiyildirim' },
+    { '@type': 'SoftwareSourceCode', name: 'CAN Bus Simulator', programmingLanguage: 'C', codeRepository: 'https://github.com/semyhist/CANBusSimulator' },
+    { '@type': 'SoftwareSourceCode', name: 'EasyGit', programmingLanguage: 'JavaScript', codeRepository: 'https://github.com/semyhist/EasyGit' },
+  ],
 }
 
 export default function ProjectsPage() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: 'Semih Aydın - Projeler',
-    description: 'Web projeleri, C programlama projeleri ve diğer yazılım geliştirme çalışmaları',
-    url: 'https://semihaydin.dev/projects',
-    author: {
-      '@type': 'Person',
-      name: 'Semih Aydın',
-      url: 'https://semihaydin.dev'
-    }
-  }
-
   return (
-    <>
+    <div className="projects-page">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
-      
-      <div className="projects-page">
-        <Link href="/">
-          <button className="back-button">
-            <ArrowLeft size={20} />
-            Ana Sayfa
-          </button>
-        </Link>
-
-        <div className="container">
-          <h1 className="projects-page-title">Projelerim</h1>
-          
-          <section>
-            <h2>Web Projeleri</h2>
-            {projeler.webProjeler?.map((proje) => (
-              <article key={proje.id} className="project-detail-card">
-                <h3>{proje.baslik.tr}</h3>
-                <p>{proje.kisa.tr}</p>
-                <p>{proje.aciklama.tr}</p>
-                <div className="tech-badges">
-                  {proje.teknolojiler.map((tech: string) => (
-                    <span key={tech} className="tech-badge">{tech}</span>
-                  ))}
-                </div>
-                <ul>
-                  {proje.ozellikler.tr.map((ozellik: string, idx: number) => (
-                    <li key={idx}>{ozellik}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </section>
-
-          <section>
-            <h2>C Projeleri</h2>
-            {projeler.cProjeler?.map((proje) => (
-              <article key={proje.id} className="project-detail-card">
-                <h3>{proje.baslik.tr}</h3>
-                <p>{proje.kisa.tr}</p>
-                <p>{proje.aciklama.tr}</p>
-                <div className="tech-badges">
-                  {proje.teknolojiler.map((tech: string) => (
-                    <span key={tech} className="tech-badge">{tech}</span>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </section>
-
-          <section>
-            <h2>Diğer Projeler</h2>
-            {projeler.digerProjeler?.map((proje) => (
-              <article key={proje.id} className="project-detail-card">
-                <h3>{proje.baslik.tr}</h3>
-                <p>{proje.kisa.tr}</p>
-                <p>{proje.aciklama.tr}</p>
-              </article>
-            ))}
-          </section>
+      <nav className="navbar" role="navigation" aria-label="Ana navigasyon">
+        <div className="navbar-content">
+          <Link href="/#hero" className="navbar-logo" aria-label="Semih Aydın - Ana Sayfa">
+            <Image
+              src="/logowhitetrans.png"
+              alt="Semih Aydın"
+              width={120}
+              height={40}
+              style={{ height: '40px', width: 'auto' }}
+              priority
+            />
+          </Link>
+          <div className="navbar-links">
+            <Link href="/#about" className="navbar-link">Hakkımda</Link>
+            <Link href="/#skills" className="navbar-link">Yetenekler</Link>
+            <Link href="/#projects" className="navbar-link">Projeler</Link>
+            <Link href="/#certificates" className="navbar-link">Sertifikalar</Link>
+            <Link href="/#contact" className="navbar-link">İletişim</Link>
+          </div>
         </div>
-
-        <ProjectsClient projeler={projeler} />
+      </nav>
+      <div className="projects-page-header">
+        <h1>Projelerim</h1>
+        <p>Web · C · GitHub</p>
       </div>
-    </>
+      <ProjectsClient projeler={projeler} />
+    </div>
   )
 }

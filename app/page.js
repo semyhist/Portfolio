@@ -538,6 +538,33 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
+
+            <motion.a
+              href="/projects"
+              className="project-card project-view-all"
+              initial={{ y: 30, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <div className="project-content view-all-content">
+                <div className="view-all-icon">
+                  <ExternalLink size={40} />
+                </div>
+                <h3 className="project-title">{t.projects.viewAll}</h3>
+                <p className="project-description">
+                  {lang === 'tr'
+                    ? '13 GitHub reposu, C projeleri, web uygulamaları ve daha fazlası.'
+                    : '13 GitHub repos, C projects, web apps and more.'}
+                </p>
+                <div className="project-links">
+                  <span className="project-link">
+                    <ExternalLink size={18} />
+                    {t.projects.viewAll}
+                  </span>
+                </div>
+              </div>
+            </motion.a>
           </div>
         </div>
       </section>

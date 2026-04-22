@@ -1,18 +1,20 @@
 import { MetadataRoute } from 'next'
 
+const BASE_URL = 'https://semihaydin.dev'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://semihaydin.dev',
+      url: BASE_URL,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: 'https://semihaydin.dev/projects',
+      url: `${BASE_URL}/projects`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.9,
     },
   ]
 }

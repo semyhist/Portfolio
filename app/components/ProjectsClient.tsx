@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Github, ExternalLink, Code, Lightbulb, Wrench, CheckCircle, Terminal } from 'lucide-react'
+import { Github, ExternalLink, Code, Lightbulb, Wrench, CheckCircle, Terminal, GitBranch } from 'lucide-react'
 
 interface ProjectsClientProps {
   projeler: any
@@ -21,6 +21,7 @@ export default function ProjectsClient({ projeler }: ProjectsClientProps) {
     webTitle: "Web Projeleri",
     cTitle: "C Projeleri",
     otherTitle: "Diğer Projeler",
+    githubTitle: "GitHub Projelerim",
     github: "GitHub",
     demo: "Demo",
     about: "Proje Hakkında",
@@ -33,6 +34,7 @@ export default function ProjectsClient({ projeler }: ProjectsClientProps) {
     webTitle: "Web Projects",
     cTitle: "C Projects",
     otherTitle: "Other Projects",
+    githubTitle: "My GitHub Projects",
     github: "GitHub",
     demo: "Demo",
     about: "About",
@@ -42,16 +44,12 @@ export default function ProjectsClient({ projeler }: ProjectsClientProps) {
     code: "Code Distribution"
   }
 
-  const tumProjeler = aktifKategori === 'web' ? (projeler.webProjeler || []) : aktifKategori === 'c' ? (projeler.cProjeler || []) : (projeler.digerProjeler || [])
+  const tumProjeler = aktifKategori === 'web' ? (projeler.webProjeler || []) : aktifKategori === 'c' ? (projeler.cProjeler || []) : aktifKategori === 'other' ? (projeler.digerProjeler || []) : (projeler.githubProjeler || [])
 
   return (
     <>
-      <div className="lang-toggle">
-        <button className={`lang-btn ${dil === 'tr' ? 'active' : ''}`} onClick={() => setDil('tr')}>TR</button>
-        <button className={`lang-btn ${dil === 'en' ? 'active' : ''}`} onClick={() => setDil('en')}>EN</button>
-      </div>
-
       <div className="project-categories">
+        <div className="project-categories-inner">
         <button className={`category-btn ${aktifKategori === 'web' ? 'active' : ''}`} onClick={() => setAktifKategori('web')}>
           <Code size={20} />
           {metinler.webTitle}
@@ -64,10 +62,41 @@ export default function ProjectsClient({ projeler }: ProjectsClientProps) {
           <Wrench size={20} />
           {metinler.otherTitle}
         </button>
+        <button className={`category-btn ${aktifKategori === 'github' ? 'active' : ''}`} onClick={() => setAktifKategori('github')}>
+          <GitBranch size={20} />
+          {metinler.githubTitle}
+        </button>
+        </div>
       </div>
 
-      <div className="projects-list">
-        {tumProjeler.map((proje: any, index: number) => (
+      {aktifKategori === 'github' ? (
+        <div className="github-repos-grid">
+          {(projeler.githubProjeler || []).map((repo: any, index: number) => (
+            <motion.a
+              key={repo.id}
+              href={repo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="github-repo-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.4 }}
+            >
+              <div className="repo-header">
+                <Github size={18} />
+                <span className="repo-name">{repo.isim}</span>
+              </div>
+              <p className="repo-desc">{repo.aciklama[dil]}</p>
+              <div className="repo-footer">
+                {repo.dil && <span className="repo-lang">{repo.dil}</span>}
+                <span className="repo-date">{repo.guncelleme}</span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      ) : (
+        <div className="projects-list">
+          {tumProjeler.map((proje: any, index: number) => (
           <motion.div key={proje.id} className="project-detail-card" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.2, duration: 0.6 }}>
             <div className="project-detail-header">
               <h2>{proje.baslik[dil]}</h2>
@@ -140,8 +169,9 @@ export default function ProjectsClient({ projeler }: ProjectsClientProps) {
               )}
             </div>
           </motion.div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </>
   )
 }
