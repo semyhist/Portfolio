@@ -102,24 +102,27 @@ export default function Home() {
 
   useEffect(() => {
     const targets = { followers: 56, commits: 50, projects: 4, experience: 3 };
-    const duration = 2000;
-    const steps = 60;
-    const interval = duration / steps;
+    const duration = 2400;
+    const startTime = performance.now();
 
-    let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      const progress = step / steps;
+    // easeOutExpo — hızlı başlar, sona doğru yavaşlar
+    const easeOutExpo = (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+
+    let raf;
+    const animate = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutExpo(progress);
       setStats({
-        followers: Math.floor(targets.followers * progress),
-        commits: Math.floor(targets.commits * progress),
-        projects: Math.floor(targets.projects * progress),
-        experience: Math.floor(targets.experience * progress)
+        followers: Math.floor(targets.followers * eased),
+        commits: Math.floor(targets.commits * eased),
+        projects: Math.floor(targets.projects * eased),
+        experience: Math.floor(targets.experience * eased),
       });
-      if (step >= steps) clearInterval(timer);
-    }, interval);
-
-    return () => clearInterval(timer);
+      if (progress < 1) raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   if (loading) {
@@ -180,12 +183,23 @@ export default function Home() {
     setFormStatus('');
 
     try {
-      const mailtoLink = `mailto:semih@semihaydin.dev?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
-      window.location.href = mailtoLink;
-      
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: formData.name,
+          email: formData.email,
+          subject: `[Portfolio] ${formData.subject}`,
+          message: formData.message,
+          from_name: 'semihaydin.dev',
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error();
       setFormStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
+    } catch {
       setFormStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -714,10 +728,16 @@ export default function Home() {
                 {isSubmitting ? t.contact.form.sending : t.contact.form.send}
               </button>
               {formStatus === 'success' && (
-                <p className="form-message success">{t.contact.form.success}</p>
+                <div className="form-message success">
+                  <span className="form-message-icon">✓</span>
+                  <span>{t.contact.form.success}</span>
+                </div>
               )}
               {formStatus === 'error' && (
-                <p className="form-message error">{t.contact.form.error}</p>
+                <div className="form-message error">
+                  <span className="form-message-icon">✕</span>
+                  <span>{t.contact.form.error}</span>
+                </div>
               )}
             </motion.form>
 

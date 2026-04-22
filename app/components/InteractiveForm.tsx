@@ -1,88 +1,100 @@
 'use client'
 
 import { useState } from 'react'
-import { User, Mail, MessageSquare, Send } from 'lucide-react'
-import { translations } from '../lib/translations'
+import { User, Mail, MessageSquare, Send, CheckCircle, AlertCircle } from 'lucide-react'
 
-export default function InteractiveForm() {
-  const [formVerisi, setFormVerisi] = useState({ name: '', email: '', subject: '', message: '' })
-  const [formDurum, setFormDurum] = useState('')
-  const [gonderiliyor, setGonderiliyor] = useState(false)
-  const tr = translations.tr
+interface Props {
+  lang?: 'tr' | 'en'
+}
 
-  const formDegistir = (e: any) => {
-    setFormVerisi({ ...formVerisi, [e.target.name]: e.target.value })
-  }
+const labels = {
+  tr: {
+    name: 'Adınız', email: 'E-posta Adresiniz', subject: 'Konu', message: 'Mesajınız',
+    send: 'Mesaj Gönder', sending: 'Gönderiliyor...',
+    success: 'Mesajınız başarıyla gönderildi! En kısa sürede dönüş yapacağım.',
+    error: 'Mesaj gönderilemedi. Lütfen tekrar deneyin.',
+    again: 'Yeni Mesaj Gönder',
+  },
+  en: {
+    name: 'Your Name', email: 'Your Email', subject: 'Subject', message: 'Your Message',
+    send: 'Send Message', sending: 'Sending...',
+    success: "Your message has been sent! I'll get back to you soon.",
+    error: 'Message could not be sent. Please try again.',
+    again: 'Send Another Message',
+  },
+}
 
-  const formGonder = async (e: any) => {
+export default function InteractiveForm({ lang = 'tr' }: Props) {
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const t = labels[lang]
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm({ ...form, [e.target.name]: e.target.value })
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setGonderiliyor(true)
-    setFormDurum('')
+    setStatus('sending')
     try {
-      const mailtoLink = `mailto:aydnsemih61@gmail.com?subject=${encodeURIComponent(formVerisi.subject)}&body=${encodeURIComponent(`İsim: ${formVerisi.name}\\nEmail: ${formVerisi.email}\\n\\nMesaj:\\n${formVerisi.message}`)}`
-      window.location.href = mailtoLink
-      setFormDurum('success')
-      setFormVerisi({ name: '', email: '', subject: '', message: '' })
-    } catch (err) {
-      console.error(err)
-      setFormDurum('error')
-    } finally {
-      setGonderiliyor(false)
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: form.name,
+          email: form.email,
+          subject: `[Portfolio] ${form.subject}`,
+          message: form.message,
+          from_name: 'semihaydin.dev',
+        }),
+      })
+      const data = await res.json()
+      if (!data.success) throw new Error()
+      setStatus('success')
+      setForm({ name: '', email: '', subject: '', message: '' })
+    } catch {
+      setStatus('error')
     }
   }
 
+  if (status === 'success') {
+    return (
+      <div className="form-success-state">
+        <CheckCircle size={48} />
+        <h3>{t.success}</h3>
+        <button className="form-reset-btn" onClick={() => setStatus('idle')}>{t.again}</button>
+      </div>
+    )
+  }
+
   return (
-    <form className="contact-form" onSubmit={formGonder}>
+    <form className="contact-form" onSubmit={onSubmit} noValidate>
       <div className="form-group">
         <User size={20} />
-        <input
-          type="text"
-          name="name"
-          placeholder={tr.contact.form.name}
-          value={formVerisi.name}
-          onChange={formDegistir}
-          required
-        />
+        <input type="text" name="name" placeholder={t.name} value={form.name} onChange={onChange} required />
       </div>
       <div className="form-group">
         <Mail size={20} />
-        <input
-          type="email"
-          name="email"
-          placeholder={tr.contact.form.email}
-          value={formVerisi.email}
-          onChange={formDegistir}
-          required
-        />
+        <input type="email" name="email" placeholder={t.email} value={form.email} onChange={onChange} required />
       </div>
       <div className="form-group">
         <MessageSquare size={20} />
-        <input
-          type="text"
-          name="subject"
-          placeholder={tr.contact.form.subject}
-          value={formVerisi.subject}
-          onChange={formDegistir}
-          required
-        />
+        <input type="text" name="subject" placeholder={t.subject} value={form.subject} onChange={onChange} required />
       </div>
       <div className="form-group">
-        <MessageSquare size={20} />
-        <textarea
-          name="message"
-          placeholder={tr.contact.form.message}
-          value={formVerisi.message}
-          onChange={formDegistir}
-          rows={5}
-          required
-        />
+        <MessageSquare size={20} style={{ top: '20px', transform: 'none' }} />
+        <textarea name="message" placeholder={t.message} value={form.message} onChange={onChange} rows={5} required />
       </div>
-      <button type="submit" className="submit-btn" disabled={gonderiliyor}>
+      <button type="submit" className="submit-btn" disabled={status === 'sending'}>
         <Send size={20} />
-        {gonderiliyor ? tr.contact.form.sending : tr.contact.form.send}
+        {status === 'sending' ? t.sending : t.send}
       </button>
-      {formDurum === 'success' && <p className="form-message success">{tr.contact.form.success}</p>}
-      {formDurum === 'error' && <p className="form-message error">{tr.contact.form.error}</p>}
+      {status === 'error' && (
+        <div className="form-message error">
+          <AlertCircle size={16} />
+          <span>{t.error}</span>
+        </div>
+      )}
     </form>
   )
 }

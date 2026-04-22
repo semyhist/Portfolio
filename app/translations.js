@@ -2,7 +2,7 @@ export const translations = {
   tr: {
     hero: {
       title: "Semih Aydın",
-      subtitle: "Developer. Builder. Problem Solver.",
+      subtitle: "Geliştirici. Üretici. Problem Çözücü.",
       university: "Trabzon Üniversitesi · Bilgisayar Mühendisliği"
     },
     about: {
@@ -14,15 +14,15 @@ export const translations = {
     skills: {
       title: "Yeteneklerim",
       web: {
-        title: "Web Development",
+        title: "Web Geliştirme",
         desc: "Modern web teknolojileri ile responsive ve performanslı uygulamalar geliştiriyorum. React, Next.js ve JavaScript ekosisteminde deneyimliyim."
       },
       data: {
-        title: "Data Science",
+        title: "Veri Bilimi",
         desc: "Makine öğrenmesi ve veri analizi alanlarında çalışıyorum. Python ile veri işleme ve analitik çözümler üretiyorum."
       },
       community: {
-        title: "Community Building",
+        title: "Topluluk Yönetimi",
         desc: "56K+ takipçili Arka Kanat platformunu kurarak dijital topluluk yönetimi ve içerik stratejisi konusunda deneyim kazandım."
       }
     },
@@ -33,7 +33,7 @@ export const translations = {
       arkakanat: {
         title: "Arka Kanat",
         desc: "Motor sporları odaklı medya platformu. 2 yıl içinde 0'dan 56.000+ takipçiye ulaşan, düzenli içerik üretimi ve topluluk yönetimi ile sektörde tanınan bir marka haline geldi.",
-        tech: ["Community Management", "Content Strategy", "Social Media", "Brand Building"]
+        tech: ["Topluluk Yönetimi", "İçerik Stratejisi", "Sosyal Medya", "Marka İnşası"]
       },
       easygit: {
         title: "EasyGit",
@@ -47,7 +47,7 @@ export const translations = {
       },
       togg: {
         title: "TOGG Konsept",
-        desc: "Türkiye'nin milli otomobili TOGG için modern konsept web sitesi. Interaktif galeri sistemi, smooth animasyonlar ve detaylı model sayfaları.",
+        desc: "Türkiye'nin milli otomobili TOGG için modern konsept web sitesi. İnteraktif galeri sistemi, akıcı animasyonlar ve detaylı model sayfaları.",
         tech: ["HTML5", "CSS3", "JavaScript", "UI/UX"]
       },
       viewAll: "Tüm Projeleri Gör",
@@ -64,7 +64,7 @@ export const translations = {
         message: "Mesajınız",
         send: "Mesaj Gönder",
         sending: "Gönderiliyor...",
-        success: "Mesajınız başarıyla gönderildi!",
+        success: "Mesajınız başarıyla gönderildi! En kısa sürede dönüş yapacağım.",
         error: "Mesaj gönderilemedi. Lütfen tekrar deneyin."
       }
     },
@@ -149,7 +149,7 @@ export const translations = {
         message: "Your Message",
         send: "Send Message",
         sending: "Sending...",
-        success: "Your message has been sent successfully!",
+        success: "Your message has been sent successfully! I'll get back to you soon.",
         error: "Message could not be sent. Please try again."
       }
     },
@@ -162,7 +162,7 @@ export const translations = {
       followers: "Followers",
       commits: "Commits",
       projects: "Projects",
-      experience: "Years Experience"
+      experience: "Years Exp."
     },
     footer: {
       rights: "All rights reserved.",

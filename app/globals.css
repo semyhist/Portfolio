@@ -127,7 +127,7 @@ html {
 }
 
 @keyframes gridMove {
-  0% { transform: translate(0, 0); }
+  0% { transform: translate(50px, 50px); }
   100% { transform: translate(50px, 50px); }
 }
 
@@ -658,22 +658,82 @@ html {
 
 .form-message {
   margin-top: 15px;
-  padding: 15px;
-  text-align: center;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 500;
+  font-size: 0.9rem;
   border: 1px solid;
+  animation: fadeInUp 0.3s ease;
 }
 
 .form-message.success {
-  background: transparent;
   color: var(--white);
   border-color: var(--white);
+  background: rgba(255,255,255,0.04);
 }
 
 .form-message.error {
-  background: transparent;
-  color: var(--gray-400);
+  color: var(--gray-300);
   border-color: var(--gray-700);
+  background: rgba(255,255,255,0.02);
+}
+
+.form-message-icon {
+  font-size: 1rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.form-success-state {
+  border: 1px solid var(--gray-800);
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  animation: fadeInUp 0.4s ease;
+}
+
+.form-success-state svg {
+  color: var(--white);
+  opacity: 0.9;
+}
+
+.form-success-state h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-300);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.form-reset-btn {
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--gray-700);
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  margin-top: 4px;
+}
+
+.form-reset-btn:hover {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Projects Page */
