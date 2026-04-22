@@ -1,38 +1,38 @@
 # Semih Aydın - Portfolio
 
-Modern portfolio website built with Next.js 14 and Framer Motion.
+Modern, minimalist portfolio website built with Next.js 14 and Framer Motion.
 
 ## Features
 
-- Modern and minimalist design
-- Fully responsive
-- Smooth animations with Framer Motion
-- Multilingual support (TR/EN)
-- SEO optimized
-- Server-side rendering with Next.js
+- **Next.js 14** - Server-side rendering & SEO optimization
+- **Monochrome Design** - Professional minimalist aesthetic
+- **Montserrat Font** - Clean, modern typography
+- **Framer Motion** - Smooth animations
+- **Responsive** - Mobile-first design
+- **Bilingual** - Turkish/English support
+- **SEO Optimized** - Meta tags, Open Graph, Twitter Cards
 
-## Technologies
+## Tech Stack
 
 - Next.js 14
 - React 18
-- TypeScript
 - Framer Motion
-- Lucide React
+- Lucide React Icons
 - CSS3
 
 ## Installation
 
 ```bash
-git clone https://github.com/semyhist/portfolio.git
-cd portfolio
+# Install dependencies
 npm install
+
+# Run development server
 npm run dev
-```
 
-## Build
-
-```bash
+# Build for production
 npm run build
+
+# Start production server
 npm start
 ```
 
@@ -41,34 +41,39 @@ npm start
 ```
 portfolio/
 ├── app/
-│   ├── lib/
-│   │   ├── translations.ts
-│   │   └── projectsData.ts
-│   ├── projects/
-│   │   └── page.tsx
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
+│   ├── components/
+│   ├── translations.js
+│   ├── page.js
+│   ├── layout.js
+│   └── globals.css
 ├── public/
+│   ├── images/
+│   │   ├── logo.png
+│   │   ├── logowhitetrans.png
+│   │   └── logoblack.png
+│   └── sertificates/
 ├── package.json
 ├── next.config.js
-├── tsconfig.json
 └── README.md
 ```
 
-## Customization
+## Deployment
 
-Edit `app/lib/translations.ts` to update content in both Turkish and English.
-Edit `app/lib/projectsData.ts` to update project information.
-Modify colors in `app/globals.css`.
+Deploy to Vercel or Netlify:
+
+```bash
+# Build
+npm run build
+
+# Deploy to semihaydin.dev
+```
 
 ## Contact
 
+- Email: semih@semihaydin.dev
 - LinkedIn: [aydinsemih61](https://www.linkedin.com/in/aydinsemih61)
 - GitHub: [semyhist](https://github.com/semyhist)
-- Instagram: [semyhist](https://instagram.com/semyhist)
-- Twitter: [semyhist](https://twitter.com/semyhist)
-- YouTube: [semyhist](https://youtube.com/@semyhist)
+- Instagram: [semjhaydin](https://instagram.com/semjhaydin)
 
 ## License
 
@@ -76,4 +81,4 @@ MIT License
 
 ---
 
-**Semih Aydın** - Computer Engineering Student
+**Semih Aydın** - Computer Engineering Student @ Trabzon University
