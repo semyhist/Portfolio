@@ -110,7 +110,10 @@ export default function HomeClient() {
       <nav className="navbar" role="navigation" aria-label="Ana navigasyon">
         <div className="navbar-content">
           <a href="#hero" className="navbar-logo" aria-label="Semih Aydın - Ana Sayfa">
-            <img src="/logowhitetrans.png" alt="Semih Aydın logo" width="120" height="40" />
+            <picture>
+              <source srcSet="/logowhitetrans.webp" type="image/webp" />
+              <img src="/logowhitetrans-small.png" alt="Semih Aydın logo" width="40" height="40" fetchPriority="low" />
+            </picture>
           </a>
           <div className="navbar-links">
             <a href="#about" className="navbar-link">{lang === 'tr' ? 'Hakkımda' : 'About'}</a>
@@ -144,13 +147,7 @@ export default function HomeClient() {
       <section className="hero" id="hero" aria-label="Hero">
         <div className="hero-bg"><div className="hero-grid" aria-hidden="true" /></div>
         <div className="hero-content">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {t.hero.title}
-          </motion.h1>
+          <h1>{t.hero.title}</h1>
           <motion.p
             className="hero-subtitle"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
