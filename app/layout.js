@@ -13,11 +13,11 @@ const BASE_URL = 'https://semihaydin.dev'
 export const metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Semih Aydın | Software Developer',
+    default: 'Semih Aydın | Bilgisayar Mühendisliği Öğrencisi & Yazılım Geliştirici',
     template: '%s | Semih Aydın',
   },
   description:
-    'Semih Aydın — Trabzon Üniversitesi Bilgisayar Mühendisliği öğrencisi. React, Next.js ve JavaScript uzmanı web geliştirici. 56K+ takipçili Arka Kanat motorsporları topluluğunun kurucusu.',
+    'Semih Aydın — Trabzon Üniversitesi Bilgisayar Mühendisliği öğrencisi ve yazılım geliştirici. React, Next.js, JavaScript ve C ile web uygulamaları geliştiriyor. 56K+ takipçili Arka Kanat motorsporları topluluğunun kurucusu.',
   keywords: [
     'Semih Aydın', 'semihaydin', 'semihaydin.dev',
     'Web Developer', 'Frontend Developer', 'React Developer',
@@ -39,7 +39,7 @@ export const metadata = {
     locale: 'tr_TR',
     alternateLocale: ['en_US'],
     url: BASE_URL,
-    title: 'Semih Aydın | Software Developer',
+    title: 'Semih Aydın | Bilgisayar Mühendisliği Öğrencisi & Yazılım Geliştirici',
     description: 'Trabzon Üniversitesi Bilgisayar Mühendisliği öğrencisi. React & Next.js geliştirici. Arka Kanat kurucusu.',
     siteName: 'Semih Aydın',
     images: [{
@@ -53,7 +53,7 @@ export const metadata = {
     card: 'summary_large_image',
     site: '@semyhist',
     creator: '@semyhist',
-    title: 'Semih Aydın | Software Developer',
+    title: 'Semih Aydın | Bilgisayar Mühendisliği Öğrencisi & Yazılım Geliştirici',
     description: 'Trabzon Üniversitesi Bilgisayar Mühendisliği öğrencisi. React & Next.js geliştirici.',
     images: [{ url: '/images/og-image.png', alt: 'Semih Aydın - Software Developer' }],
   },
@@ -63,19 +63,6 @@ export const metadata = {
       index: true, follow: true, noimageindex: false,
       'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1,
     },
-  },
-  icons: {
-    icon: [
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
-    ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
-    other: [
-      { rel: 'mask-icon', url: '/logowhitetrans.png', color: '#000000' },
-      { rel: 'android-chrome-192x192', url: '/android-chrome-192x192.png' },
-      { rel: 'android-chrome-512x512', url: '/android-chrome-512x512.png' },
-    ],
   },
   manifest: '/site.webmanifest',
   other: {
@@ -91,8 +78,8 @@ const personSchema = {
   name: 'Semih Aydın',
   url: BASE_URL,
   email: 'semih@semihaydin.dev',
-  jobTitle: 'Software Developer',
-  description: 'Trabzon Üniversitesi Bilgisayar Mühendisliği öğrencisi. React, Next.js ve JavaScript uzmanı.',
+  jobTitle: 'Yazılım Geliştirici & Bilgisayar Mühendisliği Öğrencisi',
+  description: 'Trabzon Üniversitesi Bilgisayar Mühendisliği öğrencisi. React, Next.js, JavaScript ve C ile yazılım geliştiriyor.',
   image: `${BASE_URL}/images/og-image.png`,
   sameAs: [
     'https://github.com/semyhist',
