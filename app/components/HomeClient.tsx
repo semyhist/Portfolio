@@ -11,6 +11,7 @@ import { translations } from '../translations';
 
 export default function HomeClient() {
   const [lang, setLang] = useState('tr');
+  const [menuOpen, setMenuOpen] = useState(false);
   const [typedText, setTypedText] = useState('');
   const [stats, setStats] = useState({ followers: 0, commits: 0, projects: 0, experience: 0 });
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -115,14 +116,43 @@ export default function HomeClient() {
               <img src="/logowhitetrans-small.png" alt="Semih Aydın logo" width="40" height="40" fetchPriority="low" />
             </picture>
           </a>
-          <div className="navbar-links">
-            <a href="#about" className="navbar-link">{lang === 'tr' ? 'Hakkımda' : 'About'}</a>
-            <a href="#skills" className="navbar-link">{lang === 'tr' ? 'Yetenekler' : 'Skills'}</a>
-            <a href="#projects" className="navbar-link">{lang === 'tr' ? 'Projeler' : 'Projects'}</a>
-            <a href="#certificates" className="navbar-link">{lang === 'tr' ? 'Sertifikalar' : 'Certificates'}</a>
-            <a href="#contact" className="navbar-link">{lang === 'tr' ? 'İletişim' : 'Contact'}</a>
+          <div className="navbar-right">
+            <div className="navbar-links">
+              <a href="#about" className="navbar-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'Hakkımda' : 'About'}</a>
+              <a href="#skills" className="navbar-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'Yetenekler' : 'Skills'}</a>
+              <a href="#projects" className="navbar-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'Projeler' : 'Projects'}</a>
+              <a href="#certificates" className="navbar-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'Sertifikalar' : 'Certificates'}</a>
+              <a href="#contact" className="navbar-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'İletişim' : 'Contact'}</a>
+              <a href="/blog" className="navbar-link" onClick={() => setMenuOpen(false)}>Blog</a>
+            </div>
+            <div className="lang-toggle" role="group" aria-label="Dil seçimi">
+              <button className={`lang-btn ${lang === 'tr' ? 'active' : ''}`} onClick={() => setLang('tr')} aria-pressed={lang === 'tr'}>TR</button>
+              <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')} aria-pressed={lang === 'en'}>EN</button>
+            </div>
+            <button
+              className={`hamburger ${menuOpen ? 'open' : ''}`}
+              onClick={() => setMenuOpen(p => !p)}
+              aria-label="Menüyü aç/kapat"
+              aria-expanded={menuOpen}
+            >
+              <span /><span /><span />
+            </button>
           </div>
         </div>
+        {menuOpen && (
+          <div className="mobile-menu" role="menu">
+            <a href="#about" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'Hakkımda' : 'About'}</a>
+            <a href="#skills" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'Yetenekler' : 'Skills'}</a>
+            <a href="#projects" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'Projeler' : 'Projects'}</a>
+            <a href="#certificates" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'Sertifikalar' : 'Certificates'}</a>
+            <a href="#contact" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>{lang === 'tr' ? 'İletişim' : 'Contact'}</a>
+            <a href="/blog" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Blog</a>
+            <div className="mobile-lang" role="group" aria-label="Dil seçimi">
+              <button className={`lang-btn ${lang === 'tr' ? 'active' : ''}`} onClick={() => setLang('tr')}>TR</button>
+              <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
+            </div>
+          </div>
+        )}
       </nav>
 
       <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} />
@@ -137,11 +167,6 @@ export default function HomeClient() {
           <ArrowUp size={20} />
         </motion.button>
       )}
-
-      <div className="lang-toggle" role="group" aria-label="Dil seçimi">
-        <button className={`lang-btn ${lang === 'tr' ? 'active' : ''}`} onClick={() => setLang('tr')} aria-pressed={lang === 'tr'}>TR</button>
-        <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')} aria-pressed={lang === 'en'}>EN</button>
-      </div>
 
       {/* Hero */}
       <section className="hero" id="hero" aria-label="Hero">
