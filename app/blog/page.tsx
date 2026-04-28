@@ -57,6 +57,21 @@ export default function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }}
       />
 
+      <nav className="blog-nav-bar">
+        <div className="container">
+          <Link href="/" className="blog-nav-logo">
+            <picture>
+              <source srcSet="/logowhitetrans.webp" type="image/webp" />
+              <img src="/logowhitetrans-small.png" alt="Semih Aydın" width="36" height="36" />
+            </picture>
+          </Link>
+          <div className="blog-nav-links">
+            <Link href="/" className="blog-nav-item">← Ana Sayfa</Link>
+            <Link href="/projects" className="blog-nav-item">Projeler</Link>
+          </div>
+        </div>
+      </nav>
+
       <main className="blog-page">
         <div className="blog-header">
           <div className="container">

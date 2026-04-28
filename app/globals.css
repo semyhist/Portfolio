@@ -1564,7 +1564,53 @@ html {
   }
 }
 
-/* ─── Blog ─────────────────────────────────────────────── */
+/* ─── Blog Navbar ──────────────────────────────────────── */
+.blog-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--gray-800);
+}
+
+.blog-nav-bar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.blog-nav-logo img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.blog-nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.blog-nav-item {
+  color: var(--gray-400);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.blog-nav-item:hover {
+  color: var(--white);
+}
+
+/* ─── Blog ──────────────────────────────────────────────── */
 .blog-page {
   min-height: 100vh;
   padding-bottom: 100px;

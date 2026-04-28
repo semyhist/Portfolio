@@ -104,6 +104,21 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
+      <nav className="blog-nav-bar">
+        <div className="container">
+          <Link href="/" className="blog-nav-logo">
+            <picture>
+              <source srcSet="/logowhitetrans.webp" type="image/webp" />
+              <img src="/logowhitetrans-small.png" alt="Semih Aydın" width="36" height="36" />
+            </picture>
+          </Link>
+          <div className="blog-nav-links">
+            <Link href="/" className="blog-nav-item">← Ana Sayfa</Link>
+            <Link href="/blog" className="blog-nav-item">Blog</Link>
+          </div>
+        </div>
+      </nav>
+
       <main className="blog-post-page">
         <div className="container">
           <nav className="breadcrumb" aria-label="Breadcrumb">
