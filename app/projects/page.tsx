@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import { projeler } from '../lib/projectsData'
 import ProjectsClient from '../components/ProjectsClient'
 
@@ -82,14 +81,10 @@ export default function ProjectsPage() {
       <nav className="navbar" role="navigation" aria-label="Ana navigasyon">
         <div className="navbar-content">
           <Link href="/#hero" className="navbar-logo" aria-label="Semih Aydın - Ana Sayfa">
-            <Image
-              src="/logowhitetrans.png"
-              alt="Semih Aydın"
-              width={120}
-              height={40}
-              style={{ height: '40px', width: 'auto' }}
-              priority
-            />
+            <picture>
+              <source srcSet="/logowhitetrans.webp" type="image/webp" />
+              <img src="/logowhitetrans-small.png" alt="Semih Aydın" width="40" height="40" />
+            </picture>
           </Link>
           <div className="navbar-links">
             <Link href="/#about" className="navbar-link">Hakkımda</Link>
